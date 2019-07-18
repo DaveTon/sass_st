@@ -1,3 +1,3 @@
 ## SASS 应用
 
-- [example](lab\example_st.md)
+- [example](https://github.com/DaveTon/sass/blob/master/lab/example_st.md)
