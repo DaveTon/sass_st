@@ -1,6 +1,6 @@
 ## sass 应用
 
-```
+```css
 
 //Container
 @mixin comp($_name){
