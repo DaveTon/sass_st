@@ -21,7 +21,7 @@
     * 安装[VScode](https://code.visualstudio.com/)
     * 安装easysass插件
     * 配置编译环境
-    ```
+    ```js
     {
         /** Easy Sass 插件 **/
         "easysass.compileAfterSave": true,  // 保存后是否自动编译
