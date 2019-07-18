@@ -32,6 +32,6 @@
                 "extension": ".min.css"
             }
         ],
-        "easysass.targetDir": "source/css"  // 自定义css输出文件路径（相对于根目录）
+        "easysass.targetDir": "resource/css"  // 自定义css输出文件路径（相对于根目录）
     }
     ```
