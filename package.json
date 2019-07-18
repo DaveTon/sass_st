@@ -1,0 +1,25 @@
+{
+  "name": "sass_st",
+  "version": "0.1.0",
+  "description": "构建sass使用环境",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaveTon/sass_st.git"
+  },
+  "keywords": [
+    "sass"
+  ],
+  "author": "daveton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaveTon/sass_st/issues"
+  },
+  "homepage": "https://github.com/DaveTon/sass_st#readme"
+}
