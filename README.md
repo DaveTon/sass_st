@@ -1,6 +1,6 @@
 * [编程书籍索引](https://github.com/DaveTon/sass/blob/master/docs/free_prog.md)
 
-## SASS 应用
+## sass 应用
 
 * [example](https://github.com/DaveTon/sass/blob/master/docs/example_st.md)
 
@@ -10,18 +10,19 @@
     * 安装ruby
 
     ```
-        npm install ruby
+    npm install ruby
     ```
 
     * 安装sass
     
     ```
-        npm install -g sass
+    npm install -g sass
     ```
 
     * 安装[VScode](https://code.visualstudio.com/)
     * 安装easysass插件
     * 配置编译环境
+    
     ```js
         {
             /** Easy Sass 插件 **/
