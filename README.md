@@ -1,3 +1,5 @@
+- [编程中文数据索引](https://github.com/DaveTon/sass/blob/master/docs/free_prog.md)
+
 ## SASS 应用
 
-- [example](https://github.com/DaveTon/sass/blob/master/lab/example_st.md)
+- [example](https://github.com/DaveTon/sass/blob/master/docs/example_st.md)
