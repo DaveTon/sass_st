@@ -1,0 +1,177 @@
+
+
+$rem: 12px;//Original:14px
+$px: pxToRem(1px);
+$padding: 1rem;
+$col-num:12;
+
+/*----------------------------    Line Height    ---------------------------*/
+
+$screen-small: 768px;
+$screen-medium: 992px;
+$screen-large: 1200px;
+
+/*-----------------------------    Z-Index    ------------------------------*/
+
+$layer: (
+    max:1000,
+    modal:900,
+    nav:15,
+    active:3,
+    hover:2,
+    content:1,
+    base:auto,
+    min:-1000
+);
+
+/*------------------------------    Prefix    ------------------------------*/
+
+$prefix: webkit moz;
+
+/*----------------------------    Line Height    ---------------------------*/
+
+$line-height-normal:pxToRem(24px);//Original:28px
+$line-height-small: pxToRem(20px);//Original:21px
+$line-height-item: pxToRem(16px);//Original:18px
+
+/*-----------------------------    Font Size    ----------------------------*/
+
+$font-size-h1:pxToRem(24px);//Original:28px
+$font-size-h2:pxToRem(18px);//Original:20px
+$font-size-h3:pxToRem(16px);//Original:18px
+$font-size-h4:pxToRem(14px);//Original:15px
+$font-size-normal: pxToRem(14px);//Original:15px
+$font-size-small: pxToRem(12px); //Original:12px
+
+/*-------------------------------    Width    ------------------------------*/
+
+$width-column: 100% / $col-num;
+$width-button: pxToRem(114px);
+$width-focus: 2.5rem;
+$width-input: pxToRem(114px);
+$width-input-small: pxToRem(96px);
+$width-selector: 12rem;
+//$width-sibling: $px*857142;
+$width-sibling: 1rem - $px*5;
+$width-selector-title: $px*8;
+
+$width-layout-max: pxToRem(1127px) + $padding*2;
+$width-layout-normal: pxToRem(933px) + $padding*2;
+$width-layout-sub: pxToRem(767px);
+$width-layout-min: pxToRem(723px) + $padding*2;
+
+/*------------------------------    Height    ------------------------------*/
+
+$height-navbar: $line-height-small*2 + $padding*2;
+$height-panel-normal: 20rem;
+$height-panel-small: 9rem;
+$height-input: $line-height-normal + $px*4;
+$height-contentpanel: pxToRem(42px);
+$height-button: $line-height-normal + $px*2;
+$height-button-min: $line-height-small + $px*2;
+
+/*-----------------------------    Diameter    -----------------------------*/
+
+$diameter-button: $line-height-small;
+$diameter-circle: $line-height-normal + $padding + $line-height-small*2 + $px*4;
+$diameter-circle-small: $line-height-small*2;
+
+/*-----------------------------    Padding    ------------------------------*/
+
+$padding-label-side: pxToRem(10px);
+
+/*------------------------------    Radius    ------------------------------*/
+
+$radius:$px*4;
+$radius-small:$radius/2;
+
+/*------------------------------    Margin    ------------------------------*/
+
+$margin-label: pxToRem(4px);
+$margin-label-large: pxToRem(2px);
+
+/*------------------------------    Color    -------------------------------*/
+
+$color-primary: #6CC24A;
+$color-primary-lighter: lighten($color-primary,20%);
+$color-primary-light: lighten($color-primary,10%);
+$color-primary-darker: darken($color-primary,10%);
+
+$color-secondary: #69B3E7;
+$color-secondary-lighter: lighten($color-secondary,20%);
+$color-secondary-light: lighten($color-secondary,10%);
+$color-secondary-darker: darken($color-secondary,10%);
+
+$color-note: #EF6079;
+$color-note-darker: darken($color-note,10%);
+
+$color-grey: rgb(166,164,162);
+$color-grey-lighter: rgb(230,228,225);
+$color-grey-light: rgb(204,202,200);
+$color-grey-darker: rgb(128,126,125);
+
+$color-white: #FFFEFD;
+$color-black: lighten(black, 23%);
+
+$color-background: #F2F0ED;
+
+$color-palette-pink: #FFB3AB;
+$color-palette-pink-lighter: #FFC2BC;
+$color-palette-pink-light: #FFD1CD;
+$color-palette-pink-darker: #FFE1DD;
+$color-palette-pink-further: #FFF0EE;
+
+$color-palette-red: #EF6079;
+$color-palette-red-lighter: #F28094;
+$color-palette-red-light: #F5A0AF;
+$color-palette-red-darker: #F9BFC9;
+$color-palette-red-further: #FCDFE4;
+
+$color-palette-blue: #004F71;
+$color-palette-blue-lighter: #33728D;
+$color-palette-blue-light: #6695AA;
+$color-palette-blue-darker: #99B9C6;
+$color-palette-blue-further: #CCDCE3;
+
+/*---------------------------    Text Shadow    ----------------------------*/
+
+$text-shadow-normal: 0px 1px 4px rgba(0,0,0,.2);
+$text-shadow-small: 0px 1px 2px rgba(0,0,0,.1);
+
+/*------------------------------    Shadow    ------------------------------*/
+
+$shadow-input:0px 1px 2px 0px rgba(0,0,0,0.2);
+$shadow-panel:0px 1px 4px 0px rgba(0,0,0,0.2);
+$shadow-select:0px 1px 4px 0px rgba(88,96,46,0.3);
+$shadow-panel-active:0px 0px 1px 0px $color-background inset,
+            0px 1px 4px 1px rgba(0,0,0,.4);
+            
+$shadow-sub:0px 0px 1px 0px rgba(0,0,0,.2);
+
+$shadow-selector:0 0 0 $width-selector-title $color-white,
+                    0 1px 3px $width-selector-title rgba(0,0,0,0.3);
+
+$shadow-selector-sub:0 0 0 $width-selector-title $color-background,
+                    0 1px 3px $width-selector-title rgba(0,0,0,0.3);
+
+$shadow-selector-menu:0 -3px 0 0 $color-white,
+                    0px 1px 3px 0px rgba(0,0,0,0.3);
+
+$shadow-selector-menu-sub:0 -3px 0 0 $color-background,
+                    0px 1px 3px 0px rgba(0,0,0,0.3);
+            
+$shadow-selector-menu-float:0px 1px 3px 0px rgba(0,0,0,0.3);
+
+$shadow-panel-sub: 0px 0px 0px 3px $color-grey-lighter inset;
+
+$shadow-panel-sub-primary: 0px 0px 0px 3px $color-primary-light inset;
+
+$shadow-drawer: 0 0 0 1.5rem #{$color-background},
+        0 -1rem 0 1rem #{$color-background},
+        0 1rem 0 1rem #{$color-background},
+        0 0.871429rem 0.7rem 0.7rem rgba(0,0,0,.4);
+        
+$shadow-drawer-upward: 0 0 0 1.5rem #{$color-background},
+        0 -1rem 0 1rem #{$color-background},
+        0 1rem 0 1rem #{$color-background},
+        0 -0.871429rem 0.7rem 0.7rem rgba(0,0,0,.4);

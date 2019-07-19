@@ -1,0 +1,81 @@
+
+/**
+ * Transform px to rem unit
+ * @param {Value} $_px - Value of px unit
+ * @param {Value} $_base - Basic px unit of rem unit
+ */
+@function pxToRem($_px, $_base:if(variable-exists(rem), $rem, 14px)){
+    @return ($_px/$_base)*1rem;
+}
+
+/**
+ * Transform list to values divided by comma
+ * @param {List} $_list
+ * @param {Value} $_replaceNull
+ */
+@function listToCommaValue($_list,$_replaceNull:null){
+    $_t:nth($_list,1);
+    @if $_replaceNull{ 
+        $_replaceNull:unquote(',')#{$_replaceNull};
+    }
+    @if length($_list) > 1{
+        @for $_i from 2 to length($_list)+1{
+            @if nth($_list,$_i) == null {
+                $_t:#{$_t}#{$_replaceNull}
+            } @else{
+                $_t:#{$_t},#{nth($_list,$_i)};
+            }
+        }
+    } 
+    @return $_t;
+}
+
+/**
+ * Remove the unit of inserted value
+ * @param {Value}
+ */
+@function removeUnit($_value){
+    @if type-of($_value) == 'number' and not unitless($_value){
+        @return $_value/($_value * 0 + 1)
+    }
+    @return $_value
+}
+
+/**
+ * Caculate the space as which height minus line-height.
+ * @param {Value} $_height - Height
+ * @param {Value} $_borders - The height/width of border or padding
+ * @param {Value} $_unitHeight - Line height
+ */
+@function getSpace($_height,$_borders:0,$_unitHeight:if(variable-exists(line-height-normal),$line-height-normal,pxToRem(28px))){
+    @if(unit($_height) == px){ $_height: pxToRem($_height); }
+    @if(unit($_unitHeight) == px){ $_unitHeight: pxToRem($_unitHeight); }
+    $_space:($_height - $_unitHeight)/2;
+    @if($_borders){
+        @each $_border in $_borders {
+            @if(unit($_border) == px){ $_border: pxToRem($_border); }
+            $_space: $_space - $_border;
+        }
+    }
+    @if($_space > 0){
+        @return $_space;
+    }
+    @return 0;
+}
+
+/**
+ * Caculate the height as which height minus border or padding.
+ * @param {Value} $_height - Height
+ * @param {Value} $_borders - The height/width of border or padding
+ */
+@function getContent ( $_height, $_borders:0) {
+    @if(unit($_height) == px){ $_height: pxToRem($_height); }
+    $_space:$_height;
+    @if($_borders){
+        @each $_border in $_borders {
+            @if(unit($_border) == px){ $_border: pxToRem($_border); }
+            $_space: #{ $_space - $_border * 2 };
+        }
+    }
+    @return $_space;
+}

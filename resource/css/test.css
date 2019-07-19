@@ -1,23 +1,196 @@
-body {
-  font: 100% Helvetica, sans-serif;
-  color: #333;
-}
-
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-nav li {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px;
-}
-
-nav a {
+/**
+ * Transform px to rem unit
+ * @param {Value} $_px - Value of px unit
+ * @param {Value} $_base - Basic px unit of rem unit
+ */
+/**
+ * Transform list to values divided by comma
+ * @param {List} $_list
+ * @param {Value} $_replaceNull
+ */
+/**
+ * Remove the unit of inserted value
+ * @param {Value}
+ */
+/**
+ * Caculate the space as which height minus line-height.
+ * @param {Value} $_height - Height
+ * @param {Value} $_borders - The height/width of border or padding
+ * @param {Value} $_unitHeight - Line height
+ */
+/**
+ * Caculate the height as which height minus border or padding.
+ * @param {Value} $_height - Height
+ * @param {Value} $_borders - The height/width of border or padding
+ */
+/*----------------------------    Line Height    ---------------------------*/
+/*-----------------------------    Z-Index    ------------------------------*/
+/*------------------------------    Prefix    ------------------------------*/
+/*----------------------------    Line Height    ---------------------------*/
+/*-----------------------------    Font Size    ----------------------------*/
+/*-------------------------------    Width    ------------------------------*/
+/*------------------------------    Height    ------------------------------*/
+/*-----------------------------    Diameter    -----------------------------*/
+/*-----------------------------    Padding    ------------------------------*/
+/*------------------------------    Radius    ------------------------------*/
+/*------------------------------    Margin    ------------------------------*/
+/*------------------------------    Color    -------------------------------*/
+/*---------------------------    Text Shadow    ----------------------------*/
+/*------------------------------    Shadow    ------------------------------*/
+/*------------------------------   Selector   ------------------------------*/
+/*------------------------------   Property   ------------------------------*/
+/*
+ * Add single-line setup to the element
+ */
+/*
+ * Add prefix to the specific CSS property
+ * @param {String} $_prop - String of the CSS property
+ * @param {Value} $_value - Value for the property
+ * @param {List of String} $_prefixex - List of prefixes which is added to the property 
+ */
+/*
+ * Add property which can be seperated to four sides' properties to the element
+ * @param {String} $_prop - String of the CSS property
+ * @param {List} $_value - Value for the property 
+ * @param {String} $_suffix - String to suffix which is added to the property
+ * @param {List} $_sub-props
+ */
+/**
+ * Add divider to the element
+ * @param {Map of property paring with value} $_setting - Map for adding the extra properties to the divider
+ * @param {Value} $_length - Value of divider's length
+ * @param {Boolean} $_verticaled - Boolean for which the divider is vertical or not
+ */
+/*
+ * Setup the element's z-index
+ * @param {Value} $_layer - the key of the map which contains z-index value
+ * @param {Value} $_position - Value of position
+ */
+/** 
+ * Setup the element's border
+ * @param {Value|List of Value} $_width - Value of border-width | List of value for four sides' border-width
+ * @param {Value|List of Value|String} $_color - Value of border-color | List of value for four sides' border-color
+ * @param {Value|List of Value} $_style - Value of border-style | List of value for four sides' border-style
+ * @param {String} $_suffix - set the property to the specific side's border
+ */
+/* 
+ * Setup the element as flex box
+ * @param {Value} $_direction - Value of flex-direction
+ * @param {Value} $_wrap - Value of flex-wrap
+ * @param {Value} $_justify - Value of justify-content
+ * @param {Value} $_a-item - Value of align-items
+ * @param {Value} $_a-content - Value of align-content
+ */
+/* 
+ * Setup the element's flex item properties. If $_grow and $_shrink are 0, add min-width:0
+ * @param {Value} $_grow - Value of flex-grow
+ * @param {Value} $_shrink - Value of flex-shrink
+ * @param {Value} $_order
+ * @param {Value} $_basis - Value of flex-basis
+ * @param {Value} $_align - Value of align-self
+ */
+/*
+ * Setup the element's font properties
+ * @param {Value} $_size - Value of font-size
+ * @param {Value} $_height - Value of line-height
+ * @param {Value} $_color - Value of color
+ * @param {Value} $_weight - Value of font-weight
+ * @param {String} $_family - String of font-family, can be multi values
+ */
+/**
+ * Setup the element's position
+ * @param {List of Value|String} $_value - List of top, right, bottom, left | String of 'reset' set the value of list to auto
+ * @param {Value} $_position - Value of position
+ * @param {Value} $_z-index - Value of z-index
+ */
+/** 
+ * Setup the element's shape
+ * @param {Value|List of Value} $_width - the Value of width | the List of height, min-height, and max-height
+ * @param {Value|List of Value|String} $_height - Value of height | List of height, min-height, and max-height | String of shape type : 'rect', 'circle'
+ * @param {Value|List of Value} $_radius - Value of border-radius | List of four corners
+ */
+/**
+ * Add transition setup to the element
+ */
+/*------------------------------   Selector   ------------------------------*/
+/**
+ * Add selectors of column
+ * @param {Number} $_col-num - Number of columns' number
+ * @param {?} $_width
+ * @param {String} $_suffix - String of suffix which is added to the end of selector
+ */
+/**
+ * Add selector of icon
+ * @param {String} $_selector - String of the selector's name
+ * @param {String} $_unicode - String of the unicode
+ */
+/**
+ * @param {String} $_name
+ * @param {Map} $_frames
+ * @param {String} $_enable-reveerse
+ * @param {Boolean|Map} $_create-selector
+ */
+/*-------------------------------   Button   -------------------------------*/
+.eu-button {
+  min-width: 9.5rem;
+  height: 2.16667rem;
+  border-radius: 0.33333rem;
+  padding-top: 0.08333rem;
+  padding-right: 1rem;
+  padding-bottom: 0.08333rem;
+  padding-left: 1rem;
+  margin-top: -0.08333rem;
+  margin-bottom: -0.08333rem;
+  font-size: 1.16667rem;
+  line-height: 2rem;
+  color: #FFFEFD;
+  -webkit-transition-property: box-shadow;
+  -moz-transition-property: box-shadow;
+  transition-property: box-shadow;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   display: block;
-  padding: 6px 12px;
-  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  background-color: #6CC24A;
+  box-shadow: 0px -1px 0px #55a237 inset;
+  position: relative;
+}
+
+.eu-button:hover {
+  background-color: #8bcf70;
+}
+
+.eu-button.active, .eu-button:focus, .eu-button:active {
+  padding-bottom: 2px;
+  background-color: #6CC24A;
+  box-shadow: 1px 1px 0px #55a237 inset;
+}
+
+.eu-button::before {
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+
+.eu-button span {
+  display: inline;
+}
+
+.eu-button .eu-icon:not(:only-child) {
+  margin-right: .5em;
 }
