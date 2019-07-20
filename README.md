@@ -45,62 +45,121 @@ npm install -g sass
 
 * scss
 ```scss
-$font-stack: Helvetica, sans-serif;
-$primary-color: #333;
 
-body {
-  font: 100% $font-stack;
-  color: $primary-color;
-}
+@import './base/_base_function.scss';
+@import './base/_base_constants.scss';
+@import './base/_base_mixin.scss';
 
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
-}
+/*-------------------------------   Button   -------------------------------*/
 
-nav {
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+@include comp(eu-button){
+  $_space:getSpace($height-button,0,$line-height-normal);
+
+  @include main{
+      @include shape(null $width-button,$height-button,$radius);
+      @include space(padding,$_space $padding $_space $padding);
+      @include space(margin,(-$_space) null (-$_space) null);
+      @include font($font-size-normal,$line-height-normal,$color-white);
+      @include transition(box-shadow);
+      @include prefixer(user-select,none,$prefix);
+
+      display: block;
+      cursor:pointer;
+      border: none;
+      text-align: center;
+      background-color:$color-primary;
+      box-shadow: 0px -1px 0px $color-primary-darker inset;
+      position: relative;
   }
 
-  li { @include border-radius(10px); }
+  @include state-hover{
+      background-color: $color-primary-light;
+  }
 
-  a {
-    display: block;
-    padding: 6px 12px;
-    text-decoration: none;
+  @include state-active{
+      padding-bottom: 2px;
+      background-color: $color-primary;
+      box-shadow: 1px 1px 0px $color-primary-darker inset;
+  }
+
+  &::before{
+      @include transition(color);
+  }
+
+  span{
+      display: inline;
+  }
+
+  .eu-icon:not(:only-child){
+      margin-right: .5em;
   }
 }
 ```
 
 * css
 ```css
-body {
-  font: 100% Helvetica, sans-serif;
-  color: #333;
-}
-
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-nav li {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px;
-}
-
-nav a {
+.eu-button {
+  min-width: 9.5rem;
+  height: 2.16667rem;
+  border-radius: 0.33333rem;
+  padding-top: 0.08333rem;
+  padding-right: 1rem;
+  padding-bottom: 0.08333rem;
+  padding-left: 1rem;
+  margin-top: -0.08333rem;
+  margin-bottom: -0.08333rem;
+  font-size: 1.16667rem;
+  line-height: 2rem;
+  color: #FFFEFD;
+  -webkit-transition-property: box-shadow;
+  -moz-transition-property: box-shadow;
+  transition-property: box-shadow;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   display: block;
-  padding: 6px 12px;
-  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  background-color: #6CC24A;
+  box-shadow: 0px -1px 0px #55a237 inset;
+  position: relative;
+}
+
+.eu-button:hover {
+  background-color: #8bcf70;
+}
+
+.eu-button.active, .eu-button:focus, .eu-button:active {
+  padding-bottom: 2px;
+  background-color: #6CC24A;
+  box-shadow: 1px 1px 0px #55a237 inset;
+}
+
+.eu-button::before {
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+
+.eu-button span {
+  display: inline;
+}
+
+.eu-button .eu-icon:not(:only-child) {
+  margin-right: .5em;
 }
 
 ```
