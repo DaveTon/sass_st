@@ -62,14 +62,6 @@ npm install -g sass
       @include font($font-size-normal,$line-height-normal,$color-white);
       @include transition(box-shadow);
       @include prefixer(user-select,none,$prefix);
-
-      display: block;
-      cursor:pointer;
-      border: none;
-      text-align: center;
-      background-color:$color-primary;
-      box-shadow: 0px -1px 0px $color-primary-darker inset;
-      position: relative;
   }
 
   @include state-hover{
@@ -123,13 +115,6 @@ npm install -g sass
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  display: block;
-  cursor: pointer;
-  border: none;
-  text-align: center;
-  background-color: #6CC24A;
-  box-shadow: 0px -1px 0px #55a237 inset;
-  position: relative;
 }
 
 .eu-button:hover {
