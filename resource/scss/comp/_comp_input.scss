@@ -1,0 +1,141 @@
+
+/*-------------------------------   Input   -------------------------------*/
+
+@include comp(eu-input){
+    $_padding:getSpace($height-input,1px,$line-height-small);
+    $_margin:getSpace($height-input,0,$line-height-normal);
+
+    @include main{
+        @include shape($width-input $width-input, $height-input);
+        @include space(padding,$_padding $padding $_padding $padding);
+        @include space(margin,(-$_margin) null (-$_margin));
+        @include border(1px,$color-grey-lighter);
+        @include font($font-size-normal,$line-height-small);
+        @include transition(box-shadow border-color);
+        
+        /*background-color: $color-white;*/
+        border-radius: $radius;
+        outline: 0;
+        box-shadow: none;
+    }
+
+    @include state-hover{
+        /*@include border(1px,$color-primary);*/
+        border-color: $color-primary;
+        /*background-color: $color-white;*/
+        //border-radius: $radius;
+        box-shadow: $shadow-input;
+    }
+
+    @include state-active{
+        /*@include border(1px,$color-primary);*/
+        border-color: $color-primary;
+        /*background-color: $color-white;*/
+        //border-radius: $radius;
+        box-shadow: $shadow-input;
+    }
+
+    &textarea{
+        min-width: 100%;
+        max-width: 100%;
+        min-height: $line-height-normal * 4;
+        padding: 0.5rem 1rem;
+    }
+    
+    &:not(input){
+        &:not(textarea){
+            @include flex;
+            @include space(padding,0 null 0);
+            
+            position: relative;
+
+            @include state-active{
+                border-color: $color-primary;
+            }
+
+            input, .eu-unit{
+                $_padding:getSpace($height-input,0px,$line-height-small);
+                $_margin:getSpace($height-input,1px,$line-height-normal);//1px border from parent
+                
+                @include space(padding,$_padding null $_padding);
+                @include space(margin,(-$_margin) null (-$_margin));
+                
+                height: #{ $height-input };
+                line-height: $line-height-small;
+            }
+
+            input{
+                @include shape(100% 0, null);
+                outline: 0;
+            }
+
+            .eu-unit{
+                display: none;
+                white-space: nowrap;
+                padding-left: $padding/2;
+
+                @include state-active{
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+/*----------------------
+         Title
+----------------------*/
+
+@include comp(eu-input){
+    @include modifier(title){
+        @extend %eu-title;
+        @extend .eu-input;
+        @include font($font-size-h2,$line-height-normal);
+        
+        padding: 2px;
+        border:none;
+        border-radius:0;
+        box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-white inset,
+        0px 0px 0px 1px $color-grey-lighter inset;
+
+        @include state-hover{
+            border:none;
+            border-radius: 0;
+            box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-white inset,
+            0px 0px 0px 1px $color-primary inset;
+        }
+
+        @include state-active{
+            border:none;
+            border-radius: 0;
+            box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-white inset,
+            0px 0px 0px 1px $color-primary inset;
+        }
+    }
+}
+
+@include comp(eu-input){
+    @include modifier(title note){
+        box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-white inset,
+        0px 0px 0px 1px $color-note inset;
+    }
+    
+    @include modifier(title error){
+        box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-white inset,
+        0px 0px 0px 1px $color-note inset;
+    }
+}
+
+/*----------------------
+      Note & Error
+----------------------*/
+
+@include comp(eu-input){
+    @include modifier(note){
+        border-color: $color-note;
+    }
+
+    @include modifier(error){
+        border-color: $color-note;
+    }
+}

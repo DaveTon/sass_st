@@ -1,0 +1,411 @@
+
+/*-------------------------------   Selector   -------------------------------*/
+
+@mixin selector-menu{
+    @include comp(eu-list){
+        @include main{
+            @include shape(calc(100% + 2px) 0, null null ($height-button * 5), $radius);
+            @include border(1px,$color-background);
+            @include position(calc(100% + #{$padding/2 + $px}) null null 0, absolute, content);
+            @include hardware;
+            overflow-y: scroll;
+            padding: $padding/2 $padding;
+            background: $color-white;
+            box-shadow: $shadow-panel;
+            margin:0 -1px;
+            /*border-top-right-radius: 0;
+            border-bottom-right-radius: 0;*/
+        }
+
+        @include repeated(eu-item){
+            @include single-line;
+            @include font(1rem, $line-height-item, $color-grey-darker, normal);
+            overflow-y: hidden;
+            width: 100%;
+            padding:$padding/2 0 !important;
+
+            @include state-active{
+                @include font(null, null, $color-black, 700);
+                text-shadow:$text-shadow-normal;
+
+                .eu-subtitle{ opacity: 1 }
+            }
+
+            .eu-subtitle{ opacity: .5 }
+
+            @include modifier(selected){
+                @include font(null, null, $color-black, 700);
+
+                .eu-subtitle{ opacity: 1 }
+            }
+
+            @include modifier(message, true){
+                @include state-hover{
+                    @include font(null, null, $color-black, 700);
+
+                    .eu-subtitle{ opacity: 1 }
+                }
+            }
+        }
+    }
+
+    .eu-description{
+        @include single-line;
+        @include font(1em,inherit,inherit,inherit);
+    }
+
+    .eu-subtitle{
+        @include font(0.857142em,inherit,inherit,inherit);
+    }
+}
+
+/*----------------------
+      Selector Base
+----------------------*/
+
+@include comp(selector-base){
+    $_margin:getSpace($height-input, 0, $line-height-normal);
+
+    @include main{
+        @include position(null, relative);
+        @include shape(auto $width-selector, null 0);
+        padding: 0 $height-button 0 $margin-label;
+        outline:0;
+        cursor:pointer;
+
+        //---display:inline-block---start
+        display: inline-block;
+        vertical-align: top;
+        //---display:inline-block---end
+
+        //---@extend .eu-input---start
+        @include shape(null, $height-input, $radius);
+        @include space(margin,(-$_margin) null (-$_margin));
+        @include border(1px, $color-grey-lighter);
+        @include font($font-size-normal, null, null, 700);
+        /*background-color: $color-white;*/
+        box-shadow: none;
+        //---@extend .eu-input---end
+    }
+
+    @include state-hover{
+        //---@extend .eu-input---start
+        @include border(1px, $color-primary);
+        @include z-index(hover);
+        box-shadow: $shadow-input;
+        //---@extend .eu-input---end
+
+        &::before{ 
+            border-color: $color-primary; 
+            box-shadow: $shadow-input;
+        }
+    }
+
+    @include state-active{
+        //---@extend .eu-input---start
+        @include border(1px, $color-primary);
+        @include z-index(active);
+        box-shadow: $shadow-input;
+        //---@extend .eu-input---end
+
+        &::before{ 
+            border-color: $color-primary; 
+            box-shadow: $shadow-input;
+        }
+
+        .eu-list{
+            @include border(1px,$color-primary);
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
+
+    > .eu-button.pure {
+        $_padding:getSpace($height-input,1px,$line-height-normal);
+        @include shape(null null, $height-input);
+        @include space(padding,$_padding $padding/2 $_padding $padding/2);
+        @include font($font-size-small, $line-height-normal,$color-grey-light,500);
+        @include position(0 0,absolute,base);
+
+        .eu-icon {
+            @include font(inherit, inherit, inherit);
+            vertical-align: middle;
+        }
+    }
+
+    .eu-content {
+        @include flex(row, wrap, null, center);
+    }
+
+    .eu-label, .default {
+        @include space(padding, null $padding - $padding/3 null $padding - $padding/3);
+        border: none;
+        background: none;
+        box-shadow: none;
+    }
+
+    .default { 
+        @include single-line;
+        color: $color-grey-light;
+        opacity: .9;
+
+        &:not(:only-child) { display: none;}
+    }
+
+    .eu-subtitle, 
+    .filtered { display: none;}
+
+    .eu-list{ 
+        @include space(padding, 0 null 0 null);
+        visibility: hidden;
+        border-color: $color-grey-lighter;
+        opacity: 0;
+        transform: translateY(-$padding/2);
+        transition: opacity .3s ease-out, transform .3s ease-out;
+    }
+
+    .eu-button.pure {
+        cursor: pointer;
+        text-shadow: none;
+    }
+}
+
+/*----------------------
+        Inline
+----------------------*/
+
+@include comp(selector-base){
+    @include modifier(inline){
+        width: auto!important;
+        min-width: auto!important;
+
+        .eu-label {padding-right: 0;}
+    }
+}
+
+/*----------------------
+        Multiple
+----------------------*/
+
+@include comp(selector-base){
+    @include modifier(multiple){
+        @include flex(row, wrap, null, flex-start);
+        @include shape(null, auto);
+
+        .eu-label{
+            @include modifier(default, true){
+                @include border(1px, rgba($color-grey-light, .3));
+                @include space(padding, 0 0 0 null);
+                line-height: $line-height-item - ($px*2);
+                background-color: $color-background;
+
+                .eu-button{
+                    @include shape(($padding + $padding-label-side), auto);
+                    @include font(inherit, inherit, inherit);
+                    opacity: .5;
+                    margin: 1px 0;
+
+                    @include state-hover{
+                        opacity: 1
+                    }
+                }
+
+                .eu-icon{
+                    @include font(inherit, inherit);
+                }
+            }
+        }
+
+        .eu-content {
+            @include shape(null, auto);
+        }
+    }
+}
+
+/*----------------------
+        Title
+----------------------*/
+
+@include comp(selector-base){
+    @include modifier(title){
+        word-spacing: .2rem;
+        padding-left: 0;
+        border: none!important;
+        box-shadow: none!important;
+
+        &::before{ 
+            top:100%;
+            margin: 0;
+        }
+
+        > .eu-button.pure {
+            @include position(0 0 null null,absolute);
+            padding-right: 0;
+        }
+
+        .eu-label {
+            @include font($font-size-normal, inherit);
+            padding-left: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+@include comp(selector-base){
+    @include modifier(title multiple){
+        .default { 
+            padding-left: 0;
+        }
+
+        .eu-label{
+            @include modifier(default, true){
+                border: none;
+                background: none;
+
+                @include state-hover{
+                    .eu-button::after {display: none}
+                    .eu-icon { opacity: 1;}
+                }
+
+                &:last-of-type {
+                    .eu-button::after { content: '';}
+                }
+
+                .eu-icon { opacity: 0;}
+
+                .eu-button::after{
+                    @include position(null ($padding-label-side/2 + $px*3),absolute);
+                    @include font(inherit,$line-height-normal/2);
+                    opacity: .7;
+                    content:','
+                }
+                /*
+                &:hover,&:focus{ 
+                    .eu-button::after {display: none}
+                    .eu-icon { opacity: 1;}
+                }*/
+            }
+        }
+    }
+}
+
+@include comp(selector-base){
+    @include modifier(detail){
+        .eu-list {
+            /** 
+             * Note[2018-2-6][DayDay]: 解决 selector empty message 显隐问题
+            .eu-item {
+                @include flex(null,null,space-between);
+            }*/
+
+            .eu-item{
+                @include modifier(filtered, true){
+                    @include flex(null,null,space-between);
+                    @include divider;
+
+                    &:first-of-type::before { border-bottom-width: 0;}
+                }
+            }
+
+            .eu-description { overflow-y: hidden;}
+
+            .eu-subtitle { display: inline-block;}
+        }
+    }
+}
+
+/*----------------------
+     Type Selector
+----------------------*/
+
+@include comp(eu-selector){
+    @include main{
+        @extend .selector-base;
+        @include selector-menu;
+    }
+
+    .searcher { display: none;}
+
+    .eu-content {
+        @include shape(null, 100%);
+    }
+}
+
+@include comp(eu-selector){
+    @include modifier(title h4){
+        min-width: 0;
+
+        > .text{padding: $margin-label-large;}
+
+        .dropdown.icon{display: none;}
+    }
+}
+
+@include comp(eu-selector){
+    @include modifier(title multiple){
+        @include shape(null, auto ($height-input!important));
+    }
+}
+
+@include comp(eu-selector){
+    @include modifier(title search){
+        .search{
+            padding: $margin-label-large $height-button $margin-label-large 0;
+        }
+    }
+}
+
+/*----------------------
+     Type Searcher
+----------------------*/
+
+@include comp(eu-searcher){
+    @include main{
+        @extend .selector-base;
+        @include selector-menu;
+        @include position(null, relative);
+    }
+
+    .searcher {
+        @include position(0 null null 0, absolute);
+        @include font(inherit, inherit);
+        @include shape(100%, null);
+        display: inline-block;
+        color: $color-grey-light;
+        opacity: .9;
+        border: none;
+
+        @include state-hover{
+            box-shadow: none;
+        }
+
+        @include state-active{
+            box-shadow: none;
+        }
+    }
+}
+
+@include comp(eu-searcher){
+    @include modifier(multiple){
+        .default { 
+            @include position(0 null null 0, absolute);
+            padding-left: $padding;
+        }
+
+        .searcher {
+            @include position(auto null null auto, static);
+            @include shape(auto, null);
+            padding-left: $padding - $padding/4;
+        }
+    }
+}
+
+@include comp(eu-searcher){
+    @include modifier(title){
+        .searcher{
+            @include font($font-size-h2, $line-height-normal);
+            padding-left: 0;
+        }
+    }
+}

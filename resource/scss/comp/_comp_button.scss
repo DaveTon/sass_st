@@ -1,0 +1,563 @@
+
+
+/*-------------------------------   Button   -------------------------------*/
+
+@include comp(eu-button){
+    $_space:getSpace($height-button,0,$line-height-normal);
+
+    @include main{
+        @include shape(null $width-button,$height-button,$radius);
+        @include space(padding,$_space $padding $_space $padding);
+        @include space(margin,(-$_space) null (-$_space) null);
+        @include font($font-size-normal,$line-height-normal,$color-white);
+        @include transition(box-shadow);
+        @include prefixer(user-select,none,$prefix);
+
+        display: block;
+        cursor:pointer;
+        border: none;
+        text-align: center;
+        background-color:$color-primary;
+        box-shadow: 0px -1px 0px $color-primary-darker inset;
+        position: relative;
+    }
+
+    @include state-hover{
+        background-color: $color-primary-light;
+    }
+
+    @include state-active{
+        padding-bottom: 2px;
+        background-color: $color-primary;
+        box-shadow: 1px 1px 0px $color-primary-darker inset;
+    }
+
+    &::before{
+        @include transition(color);
+    }
+
+    span{
+        display: inline;
+    }
+
+    .eu-icon:not(:only-child){
+        margin-right: .5em;
+    }
+}
+
+/*----------------------
+         Pure
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(pure){
+        display: inline-block;
+        min-width: 0;
+        padding: 1px 0;
+        border: none;
+        color: $color-grey;
+        white-space: nowrap;
+        text-shadow: $text-shadow-small;
+        background-color: transparent!important;
+        box-shadow: none!important;
+
+        @include state-hover{
+            color:$color-grey-darker;
+        }
+
+        @include state-active{
+            color: $color-primary;
+
+            @include state-hover{
+                color: $color-primary-light;
+            }
+        }
+
+        .eu-icon{
+            font-size: $padding*1.2;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(pure viable){
+        color: $color-grey-darker;
+        text-shadow: none;
+
+        @include state-hover{
+            @include font(null, null, $color-black, bold);
+        }
+
+        @include state-active{
+            @include font(null, null, $color-black, bold);
+
+            @include state-hover{
+                @include font(null, null, $color-black, bold);
+            }
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(pure primary){
+        color: $color-primary;
+
+        @include state-hover{
+            color:$color-primary-light;
+        }
+    }
+}
+
+/*----------------------
+         Rect
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(rect){
+        min-width: $height-button;
+        padding:1px;
+
+        &::before{
+            width: $height-button;
+            font-weight: normal;
+        }
+    }
+}
+
+/*----------------------
+         Circular
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(circular){
+        $_padding:1px;
+        @include shape($diameter-button,circle);
+        @include font($font-size-small,getContent($diameter-button,$_padding),$color-grey);
+
+        cursor:default;
+        min-width: 0;
+        padding: $_padding;
+        background-color: transparent;
+        box-shadow: 0px 0px 0px 1px $color-grey-light inset,
+            0px 0px 0px 1px $color-grey-light;
+        margin:getSpace($height-input,$_padding,$diameter-button) 0.3rem;
+
+        &::before{
+            @include position(0 null null 0,absolute);
+            @include shape(100%,100%);
+            padding: $_padding;
+            line-height: inherit;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(circular check){
+        cursor:pointer;
+
+        @include state-hover{
+            color: $color-white;
+            box-shadow: 0px 0px 0px 1px $color-primary inset,
+                0px 0px 0px 1px $color-primary;
+
+            &::before{
+                opacity: 1;
+            }
+        }
+
+        @include state-active{
+            cursor:default;
+            color:$color-primary;
+            background-color: $color-primary;
+            box-shadow: 0px 0px 0px 1px $color-primary;
+
+            &::before{
+                color:$color-white;
+                opacity: 1;
+            }
+        }
+
+        &::before{
+            //color:$color-primary;
+            color:$color-grey-light;
+            opacity: 0;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(circular remove){
+        cursor:pointer;
+
+        @include state-hover{
+            color: $color-white;
+            box-shadow:  0px 0px 0px 1px $color-note inset,
+                0px 0px 0px 1px $color-note;
+            
+            &::before{
+                color: $color-note;
+            }
+        }
+
+        @include state-active{
+            cursor:default;
+            color:$color-note;
+            background-color: $color-note;
+            box-shadow: 0px 0px 0px 1px $color-note;
+            
+            &::before{
+                color:$color-white;
+                opacity: 1;
+            }
+        }
+
+        &::before{
+            color:$color-grey-light;
+            opacity:1;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(circular ratio){
+        cursor:pointer;
+
+        @include state-hover{
+            color: $color-white;
+            box-shadow: 0px 0px 0px 1px $color-secondary inset,
+                0px 0px 0px 1px $color-secondary;
+
+            &::before{
+                color: $color-secondary;
+                opacity: 1;
+            }
+        }
+
+        @include state-active{
+            cursor:default;
+            color:$color-secondary;
+            background-color: $color-secondary;
+            box-shadow: 0px 0px 0px 1px $color-secondary inset,
+                0px 0px 0px 1px $color-secondary;
+
+            &::before{
+                color:$color-white;
+                opacity: 1;
+            }
+        }
+
+        &::before{opacity: 0;}
+    }
+}
+
+/*----------------------
+         Icon
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(icon){
+        min-width: 0;
+        padding: 1px $padding/2;
+
+        &::before{ 
+            font-weight: normal;
+            position: absolute; 
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(icon right){
+        padding-right:$padding*2;
+
+        &::before, &::after{ right:$padding/2; }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(icon left){
+        padding-left:$padding*2;
+
+        &::before{ left:$padding/2; }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(icon loading){
+        @include loading;
+
+        &::before, &::after{
+            @include position(0.45em,absolute);
+        }
+    }
+}
+
+/*----------------------
+         Min
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(min){
+        @include shape(null ,$height-button-min);
+        @include font($font-size-small,$line-height-small);
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(min rect){
+        min-width: $height-button-min;
+
+        &::before{
+            min-width: $height-button-min;
+        }
+    }
+}
+
+/*----------------------
+         Min Icon
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(min icon right){
+        padding-right:$padding*1.5;
+
+        &::before{ right:$padding*0.3; }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(min icon left){
+        padding-left:$padding*1.5;
+
+        &::before{ left:$padding*0.3; }
+    }
+}
+
+/*----------------------
+         Hidden
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(hidden){
+        @include state-hover(true){
+            &::before, &::after{
+                @include transition(opacity,0.3s);
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+
+        &::before, &::after{
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &::before{
+            @include position(null $padding/4, absolute, content);
+        }
+
+        &::after{
+            @include shape($padding*3, 100%);
+            @include position(0 0, absolute);
+            background: linear-gradient(90deg, rgba($color-background, 0), rgba($color-background, 0.6), rgba($color-background, 0.8));
+            content: "";
+        }
+    }
+}
+
+/*----------------------
+        Freebird
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(freebird){
+        @include shape($height-button/2 0,$height-button);
+
+        padding: $padding/2 0;
+        background-color: transparent;
+        box-shadow: none;
+        margin:#{($height-input - $height-button)/2} 0;
+        position:relative;
+
+        @include state-hover{
+            &::before,&::after{
+                background-color: $color-grey;
+            }
+        }
+
+        @include state-active{
+            &::before,&::after{
+                background-color: $color-grey;
+            }
+        }
+
+        &::before, &::after{
+            @include shape(2px,($height-button - $padding),1px);
+            display: block;
+            background-color: $color-grey-lighter;
+            position: absolute;
+            content: " ";
+        }
+
+        &::before{ left: 0;}
+        
+        &::after{ left: 4px;}
+    }
+}
+
+/*----------------------
+       Secondary
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(secondary){
+        background-color: $color-secondary;
+        box-shadow: 0px -1px 0px $color-secondary-darker inset;
+
+        @include state-hover{
+            background-color: $color-secondary-light;
+        }
+
+        @include state-active{
+            padding-bottom: 3px;
+            background-color: $color-secondary;
+            box-shadow: 1px 2px 0px $color-secondary-darker inset;
+            margin-bottom: 0;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(secondary pure){
+        color: $color-secondary;
+
+        @include state-hover{
+            color:$color-secondary-light;
+        }
+    }
+}
+
+/*----------------------
+          Sub
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(sub){
+        color: $color-grey;
+        background-color: transparent;
+        box-shadow: 0px 0px 0px 2px $color-grey-lighter inset;
+
+        @include state-hover{
+            color: $color-grey-darker;
+        }
+
+        @include state-active{
+            color: $color-grey-darker;
+            background-color: $color-background;
+            box-shadow: 0px 0px 0px 2px $color-grey-light inset;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(sub circular){
+        color: $color-grey-darker;
+        background-color: transparent;
+        /*box-shadow: 0px 0px 0px 2px $color-grey-light inset;*/
+        box-shadow: none;
+    }
+}
+
+/*----------------------
+        Note
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(note){
+        background-color: $color-note;
+        box-shadow: 0px -1px 0px $color-note-darker inset;
+
+        @include state-hover{
+            background-color: $color-note;
+        }
+
+        @include state-active{
+            padding-bottom: 3px;
+            background-color: $color-note;
+            box-shadow: 1px 2px 0px $color-note-darker inset;
+            margin-bottom: 0;
+        }
+    }
+}
+
+/*----------------------
+       Disabled
+----------------------*/
+
+@include comp(eu-button){
+    @include modifier(disabled){
+        cursor: not-allowed;
+        color: $color-grey-light;
+        text-shadow: none;
+        background-color: $color-grey-lighter;
+        box-shadow: none;
+
+        @include state-hover{
+            color: $color-grey-light;
+        }
+
+        @include state-disable{
+            cursor: not-allowed;
+            color: $color-grey-light;
+            background-color: $color-grey-lighter;
+            box-shadow: none;
+        }
+    }
+}
+
+@include comp(eu-button){
+    @include modifier(pure check){
+        @include state-active{
+            cursor: default;
+            pointer-events: none;
+
+            &::before{ 
+                color:$color-primary;
+                font-size: $font-size-h2;
+                opacity: 1;
+            }
+        }
+    }
+
+    @include modifier(pure remove){
+        @include state-active{
+            cursor: default;
+            pointer-events: none;
+
+            &::before{ 
+                color:$color-note;
+                font-size: $font-size-h2;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+/*----------------------
+         Checkbox
+----------------------*/
+
+//TODO[2018-03-23][Dave Tang]: 设定checkbox 获得焦点状态
+@include comp(eu-button){
+    @include modifier(checkbox){
+        @include state-active{
+            color: $color-black;
+
+            @include state-hover{
+                color: $color-black;
+            }
+
+            &::before{ color: $color-primary;}
+        }
+    }
+}

@@ -1,0 +1,723 @@
+
+/*----------------------
+         Charts
+----------------------*/
+
+@include comp(eu-charts){
+    @include main{
+        @include space(margin, null auto null auto);
+    }
+}
+
+/*----------------------
+         Label
+----------------------*/
+
+@include comp(eu-label){
+    $_padding: getSpace($height-button-min, 1px, $line-height-item);
+    $_margin: getSpace($height-input, null, $height-button-min);
+
+    @include main{
+        @include single-line;
+        @include font($font-size-small, $line-height-item, inherit);
+        //樣式的設定由內而外; block 本身的設定先, 而後才是 layout (排版, 例如: position, left, right...)
+        display: inline-block;
+        box-sizing: content-box;
+        max-width: 100%;
+        padding: $_padding $padding-label-side;
+        border: 1px solid rgba(204,202,200,.5);
+        border-radius: 2px;
+        background-color: $color-background;
+        box-shadow: 0px 1px 0px $color-grey-light;
+        margin: $_margin $_margin $_margin 0;
+    }
+
+    @include modifier(icon){
+        padding-right:$padding*2;
+        position: relative;
+
+        &::before{
+            @include font(null,null,$color-grey-light,normal,'Icons');
+
+            position: absolute;
+            right:$padding/2;
+        }
+    }
+
+    @include modifier(remove){
+        cursor: pointer;
+
+        &::before{ content:"\f00d"; }
+    }
+}
+
+/*----------------------
+         Circle
+----------------------*/
+
+@include comp(eu-circle){
+    $_border_width: 2px;
+
+    @include main{
+        @include shape($diameter-circle, circle);
+        @include border($_border_width, $color-white);
+
+        background-color: $color-white;
+        position: relative;
+    }
+
+    > .eu-content{        
+        @include z-index(content,relative);
+        text-align: center;
+
+        * {
+            color:$color-grey-darker;
+        }
+    }
+
+    > .eu-blank{
+        @include shape(100%, 100%, $diameter-circle/2);
+        @include position(0 null null 0, absolute, base);
+        background-color: $color-white;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    > .eu-content, > .eu-blank{
+        line-height: getContent($diameter-circle, $_border_width);
+    }
+}
+
+@include comp(eu-circle){
+    $_border-width: 2px;
+
+    @include modifier(min){
+        @include shape($diameter-circle-small, circle);
+
+        border-width: $_border-width;
+
+        > .eu-blank{
+            border-radius: $diameter-circle-small/2;
+        }
+
+        > .eu-content, > .eu-blank{
+            line-height: getContent($diameter-circle-small, $_border-width);
+        }
+    }
+}
+
+@include comp(eu-circle){    
+    @include modifier(note){
+        border-color: $color-note;
+        background-color: $color-note;
+
+        > .eu-content * {color:$color-note-darker;}
+    }
+}
+
+@include comp(eu-circle){    
+    @include modifier(primary){
+        border-color: $color-primary;
+        background-color: $color-primary;
+
+        > .eu-content * {color:$color-primary;}
+
+        > .eu-blank {color:$color-primary;}
+    }
+}
+
+@include comp(eu-circle){    
+    @include modifier(secondary){
+        border-color: $color-secondary;
+        background-color: $color-secondary;
+
+        > .eu-content * {color:$color-secondary;}
+    }
+}
+
+/*----------------------
+        Profile
+----------------------*/
+
+@include comp(eu-profile){
+    @include main{
+        @include flex(null,null,null);
+    }
+
+    > *:not(:first-child){
+        @include space(margin,null null null $width-sibling);
+    }
+
+    .eu-wrap.free > .eu-wrap{
+        &:first-child{
+            padding-top: 0;
+            padding-right: 0;
+        }
+        &:last-child{
+            padding-bottom: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+@include comp(eu-profile){
+    @include modifier(min){
+        .eu-circle{ 
+            @extend .eu-circle.min;
+            margin: getSpace($line-height-small*2, 2px, $diameter-circle-small);
+        }
+
+        .eu-wrap.free > .eu-wrap{padding: 0;}
+
+        .eu-title{
+            //line height is same as eu-subtitle
+            @include font($font-size-h4, $line-height-small, null);
+        }
+    }
+}
+
+@include comp(eu-profile){
+    @include modifier(inline){
+        font-size: $font-size-normal;
+        display: inline-block;
+
+        > * {
+            margin: 0;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .eu-circle{
+            @include shape($line-height-normal,circle);
+            border-width: 1px;
+
+            > .eu-blank{
+                border-radius: $line-height-normal/2;
+                text-align: center;
+            }
+            > .eu-content, > .eu-blank{
+                line-height: getContent($line-height-normal,1px);
+            }
+        }
+
+        .eu-wrap{padding: 0;}
+
+        .eu-title, .eu-subtitle{
+            @include font(inherit,inherit,null,400);
+        }
+    }
+}
+
+@include comp(eu-profile){
+    @include modifier(unknown){
+        .eu-circle{
+            background: transparent;
+            border-style: dashed;
+            border-color: $color-grey;
+        }
+    }
+}
+
+@include comp(eu-profile){
+    @include modifier(primary){
+        .eu-circle{@extend .eu-circle.primary}
+    }
+
+    @include modifier(secondary){
+        .eu-circle{@extend .eu-circle.secondary}
+    }
+
+    @include modifier(note){
+        .eu-circle{@extend .eu-circle.note}
+    }
+}
+
+/*----------------------
+      Button Group
+----------------------*/
+
+/*.eu-btnGroup.upward:last-child{
+    @include position($padding $padding,absolute);
+    margin-top:0;
+
+    &::before{
+        display: none;
+    }
+
+    > .eu-wrap{
+        margin-top: 0!important;
+    }
+
+    .eu-button.print{
+        position: fixed;
+        @include space(margin,(-$padding*2) null null $padding*3);
+    }
+}
+
+.eu-panel.min > .eu-btnGroup.upward:last-child{
+    top: $padding/2;
+    > .eu-wrap{
+        height: calc(100% - #{$padding});
+    }
+}*/
+
+@include comp(eu-btnGroup){
+    @include modifier(vertical, true){
+        .eu-button {
+            float:right;
+
+            &:not(:first-child) {
+                @include space(margin,null $width-sibling);
+            }
+        }
+
+        .eu-button.free{
+            margin: 0;
+        }
+
+        .float-left { float:left; }
+
+        .eu-wrap{
+            &::after {
+                display: block;
+                clear:both;
+                content: "";
+            }
+        }
+    }
+}
+
+@include comp(eu-btnGroup){
+    @include modifier(vertical){
+        .eu-button { @include space(margin, null null $width-sibling); }
+    }
+}
+/*.eu-btnGroup.vertical{
+    .eu-button { @include space(margin, null null $width-sibling); }
+}*/
+
+//[TODO][DEPRECATED][2018-05-16][Maww Hsu]: 實作 .eu-flow .eu-flow-btn-group, 後移除
+@include comp(eu-btnGroup){
+    @include modifier(edit){
+
+        .eu-wrap{
+            @include space(margin, (-$padding*2) null null $padding);
+
+            position: absolute;
+        }
+    }
+}
+
+@include comp(eu-btnGroup){
+    @include modifier(fixed){
+        @include position(null 0, absolute, content);
+
+        .eu-wrap{
+            @include space(margin, null null null $padding);
+
+            position:fixed!important;
+        }
+    }
+}
+
+@include comp(eu-btnGroup){
+    @include modifier(free){
+        .eu-wrap{ padding:0 }
+    }
+}
+
+@include comp(eu-btnGroup){
+    @include modifier(center){
+        .eu-wrap{
+            @include flex(null, null, center);
+
+            width: 100%;
+            padding: 0;
+        }
+    }
+}
+/*----------------------
+          List
+----------------------*/
+
+@include comp(eu-list){
+    @include main{
+        outline: 0;
+    }
+
+    > {
+        @include repeated(eu-item){
+            @include font($font-size-small, $line-height-normal, $color-grey-darker, normal);
+
+            display: list-item;
+            list-style: none;
+
+            &:not(:last-child){
+                padding-bottom: $padding/4;
+            }
+
+            @include state-active{
+                font-weight:bold;
+                color: $color-black;
+                .eu-subtitle{
+                    opacity: 1;
+                }
+            }
+
+            @include modifier(message){
+                opacity: .5;
+            }
+
+            @include modifier(message, true){
+                cursor:pointer;
+
+                @include state-hover{
+                    font-weight:bold;
+                    color: $color-black;
+
+                    .eu-subtitle{ opacity: 1;}
+                }
+            }
+
+            @include modifier(selected){
+                font-weight:bold;
+                color: $color-black;
+
+                .eu-subtitle{
+                    opacity: 1;
+                }
+            }
+        } 
+    }
+
+    .eu-description, .eu-subtitle {@include single-line;}
+
+    .eu-description{
+        @include font(1em,inherit,inherit,inherit);
+
+        &:first-child:nth-last-child(2){
+            /*@include flex-item(null,0);*/
+            /*@include flex-item(null,2);
+            $_width: 100% / 2;
+            max-width: $_width;*/
+            @include flex-item(null, 0);
+            width: auto;
+
+        }
+    }
+
+    .eu-subtitle{
+        @include font(0.857142em,inherit,inherit,inherit);
+        opacity:0.5;
+
+        &:last-child:nth-child(2){
+            /*@include flex-item(null,1);
+            text-align: end;*/
+            /*$_width: 100% / 2;
+            max-width: $_width;*/
+            width: auto;
+            text-align: end;
+        }
+    }
+}
+
+@include comp(eu-list){
+    @include modifier(detail){
+        .eu-content{
+            @include flex(null, null, null, center);
+        }
+        .eu-description{
+            @include flex-item(null);
+        }
+        .eu-subtitle{
+            @include flex-item(null, 3);
+        }
+    }
+}
+
+/*----------------------
+          Menu
+----------------------*/
+
+@include comp(eu-menu){
+    @include main{
+        border-radius: $radius;
+    }
+
+    > .eu-item {
+        display: block;
+        cursor:pointer;
+        @include font($font-size-small, $line-height-normal, $color-grey-darker);
+
+        @include state-active{
+            @include font(null, null, $color-black);
+        }
+
+        @include state-active{
+            @include font(null, null, $color-black);
+        }
+    }
+}
+
+@include comp(eu-menu){
+    @include modifier(attached){
+        box-shadow: 0 0 0 1px $color-grey-lighter inset;
+        overflow: hidden;
+
+        > .eu-item {
+            $_space:getSpace($height-button,0,$line-height-normal);
+            @include shape(null,$height-button);
+            @include space(padding,$_space $padding/2 $_space $padding/2);
+            @include space(margin,(-$_space) null (-$_space) null);
+
+            @include state-active{
+                color: $color-white;
+                background-color: $color-primary;
+            }
+
+            @include state-hover{
+                color: $color-white;
+                background-color: $color-primary-light;
+            }
+        }
+    }
+}
+
+/*----------------------
+          Sort
+----------------------*/
+
+@include comp(eu-sort){
+    @include main{
+        @include flex-item(null,0);
+        line-height: normal;
+        //flex-shrink: 0;
+    }
+
+    &::after{
+        content: ' ';
+        clear:both;
+    }
+
+    > *{
+        vertical-align: middle;
+        float: left;
+    }
+}
+
+/*----------------------
+          Slash
+----------------------*/
+
+@include comp(eu-slash){
+    @include main{
+        @include font($font-size-h3,$line-height-normal);
+        padding:0 #{$width-sibling};
+    }
+
+    &::before{
+        content: " / ";
+    }
+}
+
+/*----------------------
+       MultiFlow
+----------------------*/
+
+@include comp(eu-multiFlow){
+    @include main{
+        @include flex;
+        width: calc(100% + #{$padding*2});
+        margin:0 #{-$padding};
+    }
+
+    > .eu-wrap{
+        width: 100%
+    }
+
+    > .eu-wrap .eu-flow {
+        padding: 0 #{$padding};
+    }
+
+    > .vertical .eu-flow {
+        @extend .eu-flow.sub;
+    }
+
+    > .horizontal .eu-flow {
+        @include space(margin, (-$padding) (-$padding/2) null (-$padding/2));
+        width: calc( 100% + #{$padding} );
+
+        .eu-panel { margin-bottom: 0; }
+
+        .eu-flow-item {
+            @extend .eu-col-4;
+            @include space(padding, $padding $padding/2 0 $padding/2);
+            float: left;
+        }
+
+        &::before, &::after{
+            display: block;
+            content:'';
+            clear: both
+        }
+    }
+
+    > .horizontal.mid .eu-flow{
+        .eu-flow-item{
+            @extend .eu-col-6;
+        }
+    }
+}
+
+@include comp(eu-multiFlow){
+    @include modifier(section){
+        margin-top: 1rem;
+    }
+}
+
+/*----------------------
+        Filter
+----------------------*/
+
+@include comp(eu-filter){
+    @include state-active(true){
+        .mode-advance{display: none;}
+    }
+
+    @include modifier(switch){
+        @include state-active{
+            .mode-basic{display: none;}
+        }
+    }
+}
+
+@include comp(eu-filter){
+    @include modifier(flow){
+        @extend .eu-panel.pure;
+        @include flex(column,null,flex-end);
+        @include hardware(top height position);
+        border-radius:0;
+        color: inherit;
+
+        @include state-active{
+            @include position(null,relative,hover);
+
+            > * {
+                @include position(($height-navbar + $padding*2),fixed);
+                @include hardware(transform box-shadow);
+                width: inherit;
+                background-color: $color-background;
+
+                @include state-active{
+                    box-shadow: $shadow-drawer;
+                }
+
+                &.eu-animation {
+                    &-show.play{ animation-name: slide-show }
+                    &-hide.play{ animation-name: slide-hide }
+                }
+
+            }
+
+            .mode-basic{
+                @include state-active(true){
+                    display:none;
+                }
+            }
+
+            .mode-advance {
+                @include shape(null, null null (calc(100vh - #{$height-navbar + $padding*4})));
+            }
+
+            &::after{
+                $_margin:getSpace($height-input,0,$line-height-normal);
+                @include shape(100%, $height-input);
+                @include space(margin,(-$_margin) null (-$_margin));
+                display: block;
+                content: ' ';
+            }
+        }
+
+        .eu-divider.section{
+            margin-top: $padding*4;
+
+            &::before{
+                top:-$padding*2;
+            }
+        }
+
+        .eu-content{
+            @include flex;
+            @include shape(null, auto $height-input);
+        }
+
+        .mode-basic{
+            .eu-list{width: calc(100% + #{$height-button})}
+            .eu-item{
+                $_margin:getSpace($height-input,0,$line-height-normal);
+                @include space(margin,(-$_margin) null (-$_margin));
+            }
+        }
+
+        .mode-advance{
+            @include state-active(true){
+                display:none;
+            }
+        }
+    }
+}
+
+@include comp(eu-filter){
+    @include modifier(panel){
+        .eu-type-selector.type{
+            @include flex-item(null, 0);
+            width: auto;
+            min-width: 0;
+        }
+
+        .mode-advance {
+            @include position(100% null null 0, absolute, hover);
+            @include space(margin, ($padding * 2) null null (- $padding));
+            width: calc(100% + #{$padding * 2});
+            padding: $padding;
+            background-color: $color-white;
+            box-sizing: border-box;
+            border-radius: $radius;
+            box-shadow: 0px 0px 1px 0px $color-background inset,
+                $shadow-panel;
+
+            .eu-item:first-of-type {
+                @include shape(auto ($width-selector + $padding/2), null)
+            }
+        }
+    }
+}
+
+/*----------------------
+        Drawer
+----------------------*/
+
+@include comp(eu-drawer){
+    @include main{
+        @extend .eu-popup;
+        @include position(auto null 0 null, null);
+        background-color: rgba($color-background, 1);
+    }
+
+    @include state-active{
+        .eu-container{ padding-top: 0;}
+
+        &::before{
+            @include position(null null null 50%, fixed);
+            @include shape(100%, null);
+            box-shadow: $shadow-drawer-upward;
+            content: '';
+            transform: translate(-50%, $padding*2);
+        }
+    }
+
+    @include state-active(true){
+        display: none;
+    }
+}

@@ -1,0 +1,209 @@
+
+.eu-form{
+    @include space(margin,(-$padding) null (-$padding));
+    box-sizing: border-box;
+    width: 100%;
+    font-size: $font-size-normal;
+    line-height: $line-height-normal;
+}
+
+//TODO[2018-4-12][Dave Tang]: 之后开发成独立的class
+.eu-item.gap-normal {
+    > .eu-wrap {
+        > * { padding: $padding/4 0;}
+    }
+}
+
+.eu-form-field{
+    @include space(margin,null (-$padding/2) null (-$padding/2));
+    @include flex;
+    width: calc( 100% + #{$padding} );
+    padding: $padding 0;
+    position: relative;
+    
+    > .eu-item{
+        @include space(padding,null ($padding/2) null ($padding/2));
+        width: 100%;
+        margin:0;
+
+        position:relative;
+
+        > .eu-content{
+            @include shape(null,null $padding*2 100%);
+            /*
+                        > .eu-title{
+                            padding-right: $padding;
+                        }*/
+        }
+        > .eu-content.sub { padding-left: $padding;}
+
+        > .eu-content.sibling{
+            @include flex(null,wrap);
+            margin: #{-$width-sibling/2} #{-$width-sibling};
+
+            > *:not(.circular):not(.freebird){
+                padding: $width-sibling/2 $width-sibling;
+                margin:0;
+            }
+            > .eu-col{
+                > *{
+                    margin:0;
+                }
+            }
+        }
+        > .eu-content.sibling.small{
+            //TODO[2017-12-14][Maww Hsu]: 這邊的設定暫時 hard-code
+            margin: #{-$width-sibling/2} -2px;
+
+            > *:not(.circular):not(.freebird){
+                padding: $width-sibling/2 $width-sibling/2;
+            }
+            > .eu-col{
+                padding: $width-sibling/2;
+            }
+        }
+    }
+
+    > .eu-button.circular.left,
+    > .eu-button.rect.left{
+        @include position($padding null null (-$width-focus + $padding*0.3),absolute);
+    }
+
+    > .eu-button.circular.right,
+    > .eu-button.rect.right{
+        @include position(null (-$width-focus + $padding*0.3),absolute);
+    }
+
+    > .eu-button.freebird{
+        @include position($padding null null (-$width-focus - $padding/2),absolute);
+        @include transition(opacity);
+        opacity: 0;
+    }
+
+    &:hover{
+        .eu-button.freebird{opacity: 1;}
+        > .eu-complex-input{@extend .eu-complex-input.active;}
+    }
+
+}
+.eu-form-field.belong-top{
+    .eu-button.circular, .eu-button.freebird{
+        top:0;
+    }
+}
+
+.eu-form-field.active .eu-item{
+    .eu-button{
+        opacity: 1;
+    }
+    > .eu-complex-input{@extend .eu-complex-input.active;}
+}
+
+/*----------------------
+          Gap
+----------------------*/
+
+.eu-form.gap-small{
+    @include space(margin,(-$padding/2) null (-$padding/2));
+
+    > .eu-form-field{
+        padding: $padding/2 0;
+        .eu-button.circular{
+            top: $padding/2;
+        }
+        .eu-button.freebird{
+            top: $padding/2;
+        }
+    }
+}
+
+.eu-form.gap-non{
+    @include space(margin,0 null 0);
+
+    > .eu-form-field{
+        padding: 0;
+        .eu-button.circular{
+            top: 0;
+        }
+        .eu-button.freebird{
+            top: 0;
+        }
+    }
+}
+
+/*----------------------
+         Title
+----------------------*/
+
+.eu-form.title{
+    .eu-form-field:first-child{
+        @include font(null,$line-height-normal,null,700);
+    }
+}
+
+/*----------------------
+         Hover
+----------------------*/
+
+.eu-form.hover{
+    &.title .eu-form-field:not(:first-child),
+    &:not(.title) .eu-form-field{
+        @extend %hover;
+    }
+}
+
+/*----------------------
+         Step
+----------------------*/
+
+.eu-form.step{
+    //margin: -$padding;
+
+    > .eu-form-field{
+
+        > .eu-item{
+            text-align:center;
+
+            > .eu-content{
+                $_setting:(
+                    top:null,
+                    left:0,
+                    bottom:-$padding/2,
+                    border-color:$color-primary);
+                @include divider($_setting, 100%);
+                display:inline-block;
+
+                &::after{
+                    @include shape($padding*3/4,$padding*3/4);
+                    @include space(margin,$padding*0.1 null null (-$padding*3/8));
+                    @include position(null null null 50%,absolute);
+                    display: block;
+                    background-color: $color-white;
+                    box-shadow:1px 1px 0px $color-primary;
+                    transform: rotate(45deg);
+                    transform-origin: $padding/2 $padding/2;
+                    content:" ";
+                }
+            }
+        }
+
+        &:last-child > .eu-item > .eu-content{
+            &::before, &::after{
+                display: none;
+            }
+        }
+
+    }
+}
+
+
+/*----------------------
+         Style
+----------------------*/
+
+.eu-form-field.error > .eu-item{
+    > .eu-input{ @extend .eu-input.note; }
+    > .eu-complex-input{ @extend .eu-complex-input.note; }
+}
+
+.eu-form-field > .eu-item > .eu-error{ padding-left: $padding/2; }

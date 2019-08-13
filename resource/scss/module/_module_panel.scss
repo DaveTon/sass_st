@@ -1,0 +1,596 @@
+
+.eu-panel{
+    @include space(margin, null null $padding);
+    @include transition(box-shadow);
+    background-color: $color-white;
+    width: 100%;
+    box-sizing: border-box;
+    padding: $padding;
+    border-radius: $radius;
+    box-shadow: 0px 0px 1px 0px $color-background inset,
+        $shadow-panel;
+
+    //position: static;
+    color:$color-black; 
+
+    // first button group - location setting
+    // > .eu-wrap:first-of-type > .eu-btnGroup:only-child
+    [data-eu-type="title"] > .eu-btnGroup:only-child{
+        @include position(null 0,absolute,content);
+    }
+
+    // last button group - location setting
+    [data-eu-type="subtitle"] + [data-eu-type="action"]{
+        &::after{
+            display: block;
+            content: '';
+            clear: both
+        }
+        > .eu-wrap {
+            margin-top: -#{$padding + $line-height-normal + $padding - ($line-height-normal - $line-height-small)/2};
+            margin-bottom: -($line-height-normal - $line-height-small)/2;
+            float: right;
+        }
+    }
+
+    [data-eu-type="content"] ~ [data-eu-type="payload"],    
+    [data-eu-type="payload"] + [data-eu-type="action"]{
+        @include divider((top:-$padding,left:$padding),calc(100% - #{$padding*2}));
+        margin-top: $padding*2;
+    }
+}
+
+/*----------------------
+         Side label
+----------------------*/
+
+.eu-panel.side-label{
+    @include position(null, relative);
+    .eu-payload{
+        @include position(null, static);
+    }
+    // last button group - location setting
+    [data-eu-type="payload"] + [data-eu-type="action"]{
+        border: none;
+        margin-top: 0;
+        &::before{display: none;}
+        &::after{
+            display: block;
+            content: '';
+            clear: both
+        }
+        > .eu-wrap {
+            margin-top: -#{$padding + $line-height-normal + $padding - ($line-height-normal - $line-height-small)/2};
+            margin-bottom: -($line-height-normal - $line-height-small)/2;
+            float: right;
+        }
+    }
+}
+
+/*----------------------
+         Active
+----------------------*/
+
+.eu-panel.active{
+    box-shadow: $shadow-panel-active;
+}
+
+/*----------------------
+         Selectable
+----------------------*/
+
+.eu-panel.selectable{
+    cursor: pointer;
+    &:hover,
+        &.active{
+        box-shadow: 0px 0px 0px 1px $color-primary inset,
+            $shadow-select;
+    }
+}
+
+.eu-panel.free{
+    padding: 0;
+    /*    > .eu-wrap{
+            padding-left: 0;
+            padding-right: 0;
+        }*/
+    > [data-eu-type="title"]{
+        .eu-wrap {
+            @include space(padding, 0 0 null 0);
+        }
+    }
+}
+
+.eu-panel.normal{
+    min-height: $height-panel-normal;
+}
+.eu-panel.small{
+    min-height: $height-panel-small;
+}
+
+.eu-panel.sub{
+    background-color: transparent;
+    box-shadow: $shadow-panel-sub;
+}
+
+.eu-panel.primary{
+    color: $color-primary;
+
+    .eu-button.pure{
+        @extend .eu-button.pure.primary;
+    }
+    .eu-circle{
+        @extend .eu-circle.primary;
+    }
+}
+
+.eu-panel.secondary{
+    color: $color-secondary;
+
+    .eu-button:not(.pure):not(.sub){
+        @extend .eu-button.secondary;
+    }
+    .eu-button.pure{
+        @extend .eu-button.pure.secondary;
+    }
+    .eu-circle{
+        @extend .eu-circle.secondary;
+    }
+}
+
+.eu-panel.note{
+    color: $color-note;
+
+    .eu-button:not(.pure):not(.sub){
+        @extend .eu-button.note;
+    }
+    .eu-circle{
+        @extend .eu-circle.note;
+    }
+}
+
+.eu-panel.pure{
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow:none;
+    color:$color-grey-darker;
+
+    .eu-title{
+        color: inherit;
+    }
+}
+
+.eu-panel.min{
+    @include space(padding,$padding/2 null $padding/2);
+
+    .eu-wrap{
+        @include space(padding,$padding/2 null $padding/2);
+    }
+    .eu-wrap.free{
+        padding:0;
+    }
+
+    .eu-wrap.focus{
+        @include space(margin,null ($width-focus + $padding)/2 null ($width-focus + $padding)/2);
+    }
+
+    h2.eu-title{
+        @extend .h4;
+        line-height: $line-height-small;
+    }
+
+    .eu-description{
+        @include font($font-size-small,$line-height-small);
+    }
+
+    .eu-profile{@extend .eu-profile.min;}
+
+    .eu-button{
+        @extend .eu-button.min;
+    }
+
+    .eu-button.right.icon{
+        @extend .eu-button.min.right.icon;
+    }
+
+    .eu-button.left.icon{
+        @extend .eu-button.min.left.icon;
+    }
+
+    .eu-button.rect:only-child{
+        @extend .eu-button.min.rect;
+    }
+
+    // last button group - divider setting
+    [data-eu-type="payload"] + [data-eu-type="action"]{
+        @include divider((top: -$padding/2,left: $padding),calc(100% - #{$padding*2}));
+        margin-top: $padding;
+    }
+}
+
+.eu-panel.hide-button{
+    [data-eu-type="title"] > .eu-btnGroup{
+        @include transition(opacity);
+        opacity: 0;
+    }
+    &:hover [data-eu-type="title"] > .eu-btnGroup {
+        opacity: 1;
+    }
+}
+
+/*----------------------
+         States
+----------------------*/
+
+/*.eu-panel.states{
+
+    .eu-image-link{
+        display: block;
+        background-color: $color-background;
+        position: relative;
+    }
+
+    .eu-image-link::before{
+        @include shape(100%,100%);
+        @include font(0.9rem,150px,rgb(255,255,255));
+        @include position(0 null null 0,absolute,content);
+        @include transition(background-color color,.1s,ease,50ms);
+        background-color: rgba(0,0,0,0);
+
+        text-align: center;
+
+        content: "更改圖片";
+    }
+
+    .eu-image-link:hover::before{
+        background-color: rgba(0,0,0,.3);
+        color: $color-white;
+    }
+}*/
+
+/*----------------------
+        Disabled
+----------------------*/
+
+.eu-panel.disabled{
+    pointer-events: none;
+    color: $color-grey-light;
+    .eu-button.setting{display: none}
+    .eu-button{
+        @extend .eu-button.disabled;
+    }
+    .eu-button.ratio{
+        pointer-events: none;
+    }
+    .eu-icon.loading{
+        &::before{border-color: $color-white;}
+    }
+}
+
+.eu-panel.pure.disabled{
+    @include transition(opacity);
+    opacity: .2;
+    /*    position: relative;
+        &::after{
+            @include position(0 null null (-1px), absolute, active);
+            @include shape(calc(100% + 2px), 100%, $radius);
+            content: ' ';
+            display: block;
+            background-color: rgba($color-background, 0.8);
+            box-shadow: 0px 0px 8rem 0px rgba(0,0,0,0.1) inset;
+            -webkit-backdrop-filter: blur(5px);
+        }*/
+}
+
+/*----------------------
+         Loading
+----------------------*/
+
+.eu-panel.loading{
+    .eu-button.submit::before{display:none};
+    &:not(.active) {
+        .eu-button.loading{display: none;}
+    }
+    &.active{
+        .eu-button.submit{display: none;}
+    }
+}
+
+/*----------------------
+          View
+----------------------*/
+
+.eu-panel.view{
+    .eu-button.ratio{
+        pointer-events: none;
+    }
+}
+
+/*----------------------
+          List
+----------------------*/
+
+.eu-panel.nav{
+    .eu-list{
+        max-height: calc(100vh - #{$height-navbar + $padding + $padding*6 + $height-input});
+        padding: $padding;
+        padding-bottom: $padding;
+        margin-bottom: - $padding * 1/4;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &:empty{
+            display: none;
+        }
+    }
+}
+
+/*----------------------
+          Edit
+----------------------*/
+
+/*.eu-panel.edit:only-of-type{
+    box-shadow: $shadow-panel-active;
+}*/
+
+//[TODO][DEPRECATED][2018-05-16][Maww Hsu]: 實作 .eu-flow .eu-flow-btn-group, 後移除
+.eu-popup{
+    .eu-btnGroup.edit .eu-wrap{
+        position:fixed;
+    }
+}
+
+/*.eu-flow.min{
+    .eu-panel.edit:first-child > .eu-wrap:nth-of-type(1){
+        .eu-wrap:only-child, .eu-wrap:last-child:nth-child(2){
+            .eu-button:only-of-type,
+                .eu-button.setting{
+                margin: $padding/2 $padding 0 0;
+            }
+        }
+    }
+}*/
+
+/*----------------------
+        Cursor
+----------------------*/
+
+[class*='eu-cursor'].eu-panel:hover{
+    box-shadow: $shadow-panel-active;
+}
+
+/*----------------------
+        Profile
+----------------------*/
+
+.eu-panel.profile{
+    > .eu-wrap:first-of-type, > .eu-wrap:nth-of-type(2){
+        margin-left: $diameter-circle + $padding*2;
+    }
+    > .eu-wrap:nth-child(3) ~ .eu-payload{
+        margin-top:0;
+        &::before{
+            display: none;
+        }
+    }
+    .profile{
+        @include position((-$padding + $diameter-circle) null null $padding,absolute);
+    }
+}
+
+.eu-panel.min{
+    .eu-profile{
+        .eu-description:first-child{
+            @include font($font-size-small,$line-height-small);
+        }
+        .eu-circle{
+            @extend .eu-circle.min;
+        }
+    }
+}
+
+/*----------------------
+        Button
+----------------------*/
+
+.eu-panel.button{
+    @include flex(null,null,center,center);
+    @include transition(transform color background,.3s);
+    @extend .eu-panel.sub;
+    box-shadow: $shadow-panel-sub-primary;
+    color: $color-primary;
+
+    cursor: pointer;
+
+    &:hover{
+        color: $color-primary-light;
+    }
+}
+
+.eu-panel.min.button{
+    [data-eu-type="title"]{
+        .eu-title{
+            line-height: $line-height-small * 2;
+        }
+    }
+}
+
+.eu-panel.min.sel.button{
+    [data-eu-type="title"]{
+        .eu-title{
+            line-height: $line-height-small * 3.3;
+        }
+    }
+}
+
+.eu-panel.button.disabled{
+    background-color: $color-grey-lighter;
+    color: $color-grey-light;
+    box-shadow: none;
+    cursor: default;
+    .eu-title{text-shadow:none}
+}
+
+/*----------------------
+         Title
+----------------------*/
+
+.eu-panel.title {
+    .eu-wrap{ padding:0; }
+}
+
+/*----------------------
+         Type
+----------------------*/
+
+.eu-panel.type{
+    > .eu-wrap:first-of-type{
+        padding-bottom: 0;
+        .eu-title{font-size: $font-size-h2;}
+    }
+    > .eu-wrap:nth-of-type(2){
+        .eu-subtitle{
+            font-size: $font-size-small;
+            color: $color-grey-darker;
+        }
+    }
+    .eu-wrap, .eu-form-field{
+        padding-top: $padding/2;
+        padding-bottom: $padding/2;
+    }
+    .eu-description{
+        @include single-line;
+    }
+}
+.eu-panel.free
+.eu-panel.min{
+    [data-eu-type="subtitle"],
+    [data-eu-type = "payload"] {
+        > .eu-subtitle{color: $color-grey-darker; }
+    }
+}
+
+/*----------------------
+     Shortcut Button
+----------------------*/
+
+.eu-panel.shortcut {
+    @include transition(opacity);
+    opacity: .5;
+
+    &:hover{
+        opacity: 1;
+    }
+}
+
+/*----------------------
+     Input Title
+----------------------*/
+
+.eu-panel.sub,
+.eu-panel.pure{
+    .eu-input.title{
+        /*background-color: $color-background;*/
+        box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-background inset,
+        0px 0px 0px 1px $color-grey-light inset,
+        0px 0px 1px 1px rgba(0,0,0,.2) inset,
+        0px -1px 0px 1px $color-background,
+        $shadow-sub;
+
+        @include state-hover{
+            box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-background inset,
+            0px 0px 0px 1px $color-grey-light inset,
+            0px 0px 1px 1px rgba(0,0,0,.2) inset,
+            0px -1px 0px 1px $color-background,
+            $shadow-sub;
+        }
+
+        @include state-active{
+            box-shadow: 0px #{$height-input - $px*3} 0px 0px $color-background inset,
+            0px 0px 0px 1px $color-grey-light inset,
+            0px 0px 1px 1px rgba(0,0,0,.2) inset,
+            0px -1px 0px 1px $color-background,
+            $shadow-sub;
+        }
+    }
+}
+
+/*----------------------
+     Complex Input
+----------------------*/
+
+.eu-panel.sub,
+.eu-panel.pure{
+    .eu-complex-input >*{
+        background-color: $color-background;
+    }
+}
+
+/*----------------------
+     Type Selector
+----------------------*/
+
+.eu-panel.sub,
+.eu-panel.pure{
+    .eu-type-selector.title{
+        @include state-active{
+            &::before{
+                border-color: $color-background;
+            }
+        }
+
+        .eu-list{
+            background-color: $color-background;
+        }
+        
+        .eu-item{
+            color: $color-grey-darker;
+            
+            @include state-hover{
+                color: $color-black;
+            }
+            
+            @include state-active{
+                color: $color-black;
+            }
+        }
+        
+        .eu-item.selected{
+            color: $color-black;
+        }
+    }
+}
+
+.eu-panel.pure {
+    .eu-type-selector.title{
+        .text{
+            color:$color-grey-darker;
+        }
+    }
+}
+
+/*----------------------
+        Panel
+----------------------*/
+
+.eu-panel.error{
+    position:relative;
+
+    &::after{
+        @include position(0 null null (-1px), absolute, content);
+        @include shape(calc(100% + 2px), 100%, $radius);
+        @include border(1px, $color-note);
+        display: block;
+        background-color: rgba($color-white, 0.8);
+        -webkit-backdrop-filter: blur(5px);
+        content: ' ';
+    }
+
+    .eu-note {
+        @include position(0 null null 0, absolute, hover);
+        @include shape(100%, 100%, $radius);
+        @include flex(null, null, center, center);
+        padding: $padding;
+        margin: 0;
+    }
+}

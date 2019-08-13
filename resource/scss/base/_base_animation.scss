@@ -1,0 +1,19 @@
+
+[class*="eu-animation"]{
+    @include hardware;
+    @include prefixer(animation-fill-mode, both, $prefix);
+    @include prefixer(animation-iteration-count, 1, $prefix);
+    @include prefixer(animation-timing-function, ease-out, $prefix);
+    @include prefixer(animation-duration, 300ms, $prefix);
+    @include prefixer(animation-delay,100ms,$prefix);
+}
+
+@include animation('slide',(
+    from: (transform: translateY(calc(-100% - #{$padding*4}))),
+    to: (transform: translateY(0%))
+), true);
+
+@include animation('opacity',(
+    from: (opacity:0),
+    to: (opacity:1)
+), true);

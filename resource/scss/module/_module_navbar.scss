@@ -1,0 +1,68 @@
+
+.eu-topbar{
+    @include shape(100%,$height-navbar);
+    @include position(0,fixed,nav);
+    background-color: $color-primary;
+
+    .eu-container{
+        @include space(padding, null $padding null $padding);
+        height: 100%;
+    }
+
+    .eu-item{
+        @include font($font-size-normal, $line-height-normal, null, normal);
+        display: inline-block;
+        height: 100%;
+        padding:$padding/2 $padding;
+        margin: 0 $px*2;
+        border-radius: $radius;
+        text-decoration: none;
+    }
+
+    .eu-title,
+    .eu-description{
+        @include font(inherit, inherit, $color-white, normal);
+    }
+
+    &::after{
+        clear:both;
+    }
+}
+
+.eu-brand-logo{
+    display: inline-block;
+    height: 100%;
+    padding: $padding 0;
+    float: left;
+    box-sizing: border-box;
+
+    img{
+        @include shape(auto,100%);
+    }
+}
+
+.eu-navbar{
+    margin: getSpace($height-navbar, $padding/2, $line-height-normal);
+    float:left;
+
+    .eu-item{
+        &:hover{
+            background-color: $color-primary-light;
+        }
+    }
+
+    .eu-item.active{
+        background-color: $color-primary-light;
+    }
+}
+
+.eu-navbar-profile{
+    display: flex!important;
+    align-items: center;
+    margin: #{$padding} 0 0 #{$padding};
+    float:right;
+
+    .dropdown.icon{
+        color: $color-white;
+    }
+}

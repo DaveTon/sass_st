@@ -1,0 +1,381 @@
+
+/*-------------------------------   Layout   -------------------------------*/
+
+@include column;
+
+.eu-main{
+    @include shape(100%, 0 100%);
+    //NOTE[2018-04-19][Maww Hsu]: 此 overflow-y 用以控制 modal 出現時的捲軸行為
+    overflow-y: auto;
+    > .eu-container {
+        @include flex(row, wrap);
+        padding-top: $height-navbar;
+        > * { @include space(padding, null $padding null $padding);}
+    }
+}
+
+.eu-container {
+    @include screen-small() {
+        width: auto; 
+    }
+
+    @include screen-medium() {
+        width: $width-layout-min;
+    }
+
+    @include screen-large() {
+        width: $width-layout-normal;
+    }
+
+    @include screen-extra-large() {
+        width: $width-layout-max;
+    }
+    
+    @include space(margin, null auto null auto);
+    
+    &.center {
+        @include flex(null, null, center, center);
+    }
+}
+
+/*----------------------
+        Popup
+----------------------*/
+
+.eu-popup{
+    @include position(0 null null 0, fixed, modal);
+    @include shape(100%,100%);
+    background-color: rgba($color-background, .85);
+    -webkit-backdrop-filter: blur(10px);
+
+    .eu-close-curtain{
+        @include shape(100%,100%);
+        overflow-y:scroll;
+        > .eu-container{
+            min-height: 100%;
+            padding-top: $height-navbar;
+            > * { @include space(padding, null $padding null $padding);}
+            > .eu-button.remove{
+                @include position(($height-navbar/2 - $padding - $px) ($height-navbar/2 - $padding - $px),fixed);
+                display: none;
+                box-sizing: content-box;
+
+                cursor:pointer;
+                pointer-events: auto;
+
+                &::before{color: $color-grey-light; }
+                &:hover::before{ color: $color-grey-darker; }
+            }
+        }
+    }
+    .eu-cursor-zoomOut.eu-close-curtain > .eu-container > .eu-button.remove{ display: block; }
+}
+
+.eu-popup.note{
+    @include position(null, null, max);
+    background-color: rgba(128,126,125,.85);
+
+    .eu-close-curtain > .eu-container > .eu-button.remove:hover::before{color: $color-grey}
+
+    + .eu-popup {
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/*----------------------
+         Flow
+----------------------*/
+
+.eu-flow{
+    @include shape(100%, null);
+    @include space(padding,$padding * 2);
+    position:relative;
+}
+
+.eu-flow.sub{
+    .eu-panel{margin-bottom: 0}
+    // > .eu-flow-item:last-child
+    .eu-flow-item:last-child{
+        padding-bottom: 0;
+    }
+}
+
+.eu-flow-item{
+    @include shape(100%, null);
+    @include space(padding,null null $padding);
+    position:static;
+    cursor:auto;
+}
+
+.eu-flow-btn-group{
+    .eu-btnGroup:not(.active){
+        .eu-button.on-active{
+            display: none;
+        }
+        .eu-button:only-child,
+            .eu-button:last-child{margin: 0;}
+    }
+
+    .stick-buttom{
+        @include position(null null $padding*2 null, fixed);
+    }
+}
+
+/*----------------------
+         Wrap
+----------------------*/
+
+.eu-wrap{
+    position: relative;
+    text-align: left;
+}
+
+.eu-wrap:not(.free){
+    padding: $padding;
+}
+
+/*.eu-wrap.focus{
+    @include space(padding, null ($padding+ $width-focus) null ($padding+ $width-focus))
+}*/
+
+/*----------------------
+         Content
+----------------------*/
+
+.eu-content.icon{
+    &::before{
+        display: none;
+    }
+
+    > *:last-child::before {
+        display: none;
+    }
+}
+
+.eu-content.icon.arrowRight > *::before{
+    margin-left: $padding/2;
+    float:right;
+    font-family: 'Icons';
+    font-style: normal;
+    opacity: .2;
+    content: "\f178";
+}
+
+.eu-content.scrolled {
+    @include shape(null, null null 3 * $height-panel-small, $radius);
+    padding: $padding;
+    box-shadow: 0 0 0 1px $color-grey-lighter inset;
+    overflow-x: hidden;
+    .eu-description {
+        padding-bottom: 1em;
+        /*        &:last-of-type {
+                    padding-bottom: 0;
+                }*/
+    }
+}
+
+/*----------------------
+         Payload
+----------------------*/
+
+.eu-payload{ position: relative; }
+
+/*----------------------
+        Flex
+----------------------*/
+
+.flex{
+    @include flex;
+
+    .fluid{
+        @include flex-item(1,1);
+        //min-width: 0;
+    }
+    .fluid.grow-2{
+        @include flex-item(2,1);
+    }
+}
+
+.flex-wrap{
+    @extend .flex;
+    @include prefixer(flex-wrap,wrap,$prefix);
+}
+
+.flex-vertical{
+    @extend .flex;
+    @include prefixer(flex-direction,column,$prefix);
+}
+
+.flex-center{
+    @extend .flex;
+    @include prefixer(justify-content,center,$prefix);
+}
+
+.flex-between{
+    @extend .flex;
+    @include prefixer(justify-content,space-between,$prefix);
+}
+.flex-between-right{
+    margin-left: auto;
+}
+.flex-between-left{
+    margin-right: auto;
+}
+
+.flex-right{
+    @extend .flex;
+    @include prefixer(justify-content,flex-end,$prefix);
+}
+
+.flex-middle{
+    @extend .flex;
+    @include prefixer(align-items,center!important,$prefix);
+}    
+
+.flex-fluid{
+    @include flex-item(1,1);
+    //min-width: 0;
+}
+.flex-fluid.grow-2{
+    @include flex-item(2,1);
+}
+.flex-solid{
+    @include flex-item(0!important,0!important);
+}
+
+/*----------------------
+         Focus
+----------------------*/
+
+.focus{
+    @include space(margin,null $width-focus null $width-focus);
+}
+
+.focus > .eu-wrap {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*----------------------
+         Fluid
+----------------------*/
+
+.fluid{ @include shape((100%!important) (0!important), null) }
+
+/*----------------------
+         Full
+----------------------*/
+
+.full{ @include shape(null, 100%); }
+
+.full > .scrolled{ height: 100%; }
+
+.eu-multiFlow .full{ @include shape(null, calc(100vh - #{$height-navbar + $padding*4})); }
+
+.scrolled{
+    max-height: 100%;
+    overflow-y: scroll;
+}
+
+/*----------------------
+         Belong
+----------------------*/
+
+.belong-top{ padding-top:0!important; }
+
+.belong-bottom{ padding-bottom:0!important; }
+
+.belong-none{
+    padding-top:0!important;
+    padding-bottom:0!important;
+}
+
+/*----------------------
+         Sibling
+----------------------*/
+
+.sibling:not(.vertical){
+    /*@include space(margin,null (-$width-sibling));*/
+    > *:not(:first-child) {
+        @include space(margin,null null null $width-sibling);
+    }
+    /*> *:not(.circular):not(.freebird):not(.eu-error) + *:not(.eu-error){
+        margin-left: $width-sibling;
+    }
+    > *:not(.circular):not(.freebird):not(.eu-error) + .eu-button.pure{
+        margin-left: $width-sibling/2;
+    }
+    > .eu-button.pure + .eu-button.pure{
+        margin-left: 0
+    }*/
+}
+
+.sibling.vertical {
+    > * {
+        @include space(margin,null null $width-sibling);
+    }
+}
+
+
+// 目前沒用到
+/*.flex-vertical.sibling{
+    > *:not(.circular):not(.freebird) + *{
+        margin-left:0;
+        margin-top:$padding;
+    }
+}
+
+.flex-wrap.sibling{
+    margin: -$width-sibling/2;
+    > *:not(.circular):not(.freebird) {        
+        margin: $width-sibling/2;
+    }
+    > *:not(.circular):not(.freebird) + *{
+        margin-left: $width-sibling/2;
+    }
+    .eu-subtitle:not(:last-child){
+        padding-right: .5em!important;
+        position:relative;
+        &::before{
+            position: absolute;
+            right: .15em;
+            content: ","
+        }
+    }
+}
+
+.flex-wrap.sibling.sub{
+    margin: -$width-sibling/4;
+    > *:not(.circular):not(.freebird) {        
+        margin: $width-sibling/4;
+    }
+    > *:not(.circular):not(.freebird) + *{
+        margin-left: $width-sibling/4;
+    }
+}*/
+
+/*----------------------
+         Align
+----------------------*/
+
+.align-right{ text-align: right; }
+
+.align-left{ text-align: left!important; }
+
+.align-center{ text-align: center; }
+
+.float-right{ float: right; }
+
+%hover {
+    @include transition(background-color);
+
+    &:hover {
+        background-color: rgba($color-background,0.5);
+        border-radius: $radius-small;
+    }
+}
+
+//TODO[2017-12-18][Maww Hsu]: 暫時 hard code 處理
+.hover:not(.eu-form):not(.eu-button){
+    @extend %hover;
+}

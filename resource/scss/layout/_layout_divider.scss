@@ -1,0 +1,191 @@
+
+/*-------------------------------   Divider   -------------------------------*/
+
+.eu-divider{
+    @include divider;
+}
+
+.eu-divider.section{
+    margin-top: $padding*2;
+    
+    &::before{ top: -$padding;}
+}
+
+.eu-divider.vertical{
+    @include divider(null,null,true);
+}
+
+.eu-divider.vertical.section{
+    @include space(margin,0 null null $padding*2);
+
+    &::before{ left: -$padding; }
+}
+
+.eu-divider.vertical.snippet{
+    padding-left: $padding/2;
+
+    &::before{
+        @include position($padding/2 null null 0);
+        
+        height: calc(100% - #{$padding});
+    }
+}
+
+/*.snippet + .eu-divider.vertical.snippet {
+    margin-left: $padding;
+}*/
+
+/*----------------------
+       Content
+----------------------*/
+
+.eu-content.eu-divider{
+    margin-top:$padding/2;
+
+    &::before{ top: -$padding/4; }
+}
+
+.eu-content.eu-divider.sibling.small{
+    margin-top:#{$padding/2 - $width-sibling/2}!important;
+
+    &::before{ top: $padding/4 - $width-sibling/4; }
+}
+
+/*----------------------
+         Wrap
+----------------------*/
+
+.eu-wrap.eu-divider{
+    &::before{
+        width: calc(100% - #{$padding*2});
+        left: $padding;
+    }
+}
+
+.eu-wrap.eu-divider.vertical::before{ 
+    margin-left: 0;
+    left:0;
+}
+
+.eu-wrap.free.eu-divider{
+    &::before{
+        width: 100%;
+        left: 0;
+    }
+}
+
+.eu-wrap.focus.eu-divider{
+    &::before{
+        width: calc(100% + #{$width-focus*2 - $padding*2});
+        left: - $width-focus + $padding;
+    }
+}
+
+.eu-wrap.eu-divider.vertical{
+    &::before{ top: $padding; }
+}
+
+.focus > .eu-divider::before{
+    @include space(margin,null (-$width-focus) null (-$width-focus));
+}
+
+/*----------------------
+      Type Selector
+----------------------*/
+
+.eu-divider.bottom,
+.eu-type-selector.title.eu-divider{
+    &::before{
+        margin: 0;
+        top:100%;
+    }
+}
+
+/*----------------------
+         Form
+----------------------*/
+
+.eu-form-field.eu-divider::before{
+    /*width: calc(100% - #{$padding});*/
+    width: 100%;
+    border-color: rgba($color-grey-lighter, .5);
+    /*left: $padding/2;*/
+}
+
+/*----------------------
+         Panel
+----------------------*/
+
+.eu-panel.eu-divider{
+    margin-top: $padding*2;
+    
+    &::before{
+        border-color: $color-grey;
+        box-shadow: $shadow-sub;
+        top: -$padding;
+    }
+}
+
+.eu-panel.eu-divider:only-child{
+    margin-top: $padding*2;
+    
+    &::before{ top: -$padding*2;}
+}
+
+.eu-panel.section.eu-divider{
+    margin-top: $padding*4;
+    
+    &::before{ top: -$padding*2;}
+}
+
+.eu-panel.sub,
+.eu-panel.pure{
+    .eu-divider::before{
+        border-color: $color-grey-light;
+        /*box-shadow: $shadow-sub;*/
+    }
+}
+
+.eu-panel.eu-divider.bottom:only-child{
+    @include space(margin,0 null $padding*3);
+    
+    &::before{
+        top: auto;
+        bottom:-#{$padding*2 + $px};
+    }
+}
+
+.eu-panel.nav{
+    > .eu-divider::before{
+        width: calc(100% - #{$padding*2});
+        left: $padding;
+    }
+}
+
+/*----------------------
+       MultiFlow
+----------------------*/
+
+.eu-multiFlow{
+    > .eu-divider::before{
+        border-color: $color-grey!important;
+        box-shadow: $shadow-sub;
+    }
+
+    > .eu-divider.vertical{
+        &::before{
+            height: 100%;
+            top: 0;
+        }
+    } 
+
+    > .eu-divider.horizontal{
+        margin-top: #{$padding};
+        
+        &::before{
+            @include position((-$padding) null null $padding);
+            
+            width: calc(100% - #{$padding*2});
+        }
+    }
+}

@@ -1,0 +1,164 @@
+
+
+/*-------------------------------   Hint   -------------------------------*/
+
+@include comp(eu-side-label){
+    @include main{
+        @include flex;
+        @include position(0 null null 0, absolute, hover);
+        @include shape(null, 100%);
+    }
+    
+    [data-eu-tooltip]{
+        cursor: pointer;
+
+        @include state-hover{
+            &::before{transform: translateY(-50%) translateX($padding/2);}
+        }
+
+        &::before{
+            @include position(50% null auto null, absolute);
+            @include shape(null null $width-input-small, null);
+            word-break: keep-all;
+            word-wrap:break-word;
+            transform-origin: center left;
+            transform: translateY(-50%) translateX(0);
+        }
+        
+        &::after{ display: none;}
+    }
+
+    >* {
+        @include shape(null $padding, null, $radius);
+        @include flex(column);
+        
+        >* { @include flex-item(1);}
+    }
+
+    .eu-signal {
+        overflow-y: hidden;
+        
+        >* { border-left: 2px solid;}
+    }
+
+    .eu-scorer {
+        transform: translateX(-$padding);
+    }
+}
+
+/*----------------------
+        Palette
+----------------------*/
+
+@include comp(eu-palette){
+    @include main{
+        :nth-child(7n+1){ 
+            border-color: $color-palette-pink!important;
+            &::before{background-color: $color-palette-pink!important;}
+        }
+        :nth-child(7n+2){ 
+            border-color: $color-palette-blue-darker!important;
+            &::before{background-color: $color-palette-blue-darker!important;}
+        }
+        :nth-child(7n+3){ 
+            border-color: $color-palette-red-further!important;
+            &::before{background-color: $color-palette-red-further!important;}
+        }
+        :nth-child(7n+4){ 
+            border-color: $color-secondary-lighter!important;
+            &::before{background-color: $color-secondary-lighter!important;}
+        }
+        :nth-child(7n+5){ 
+            border-color: $color-palette-pink-light!important;
+            &::before{background-color: $color-palette-pink-light!important;}
+        }
+        :nth-child(7n+6){ 
+            border-color: $color-palette-blue-light!important;
+            &::before{background-color: $color-palette-blue-light!important;}
+        }
+        :nth-child(7n+7){ 
+            border-color: $color-palette-red-darker!important;
+            &::before{background-color: $color-palette-red-darker!important;}
+        }
+    }
+}
+
+/*----------------------
+         Error
+----------------------*/
+
+.eu-error{
+    @include shape(100%, null);
+    @include position(0 null null 0,absolute);
+    /*margin-top: - $padding;*/
+    color: $color-note; 
+    transform: translateY(-100%);
+}
+
+.error.belong-top .eu-error{
+    /*    @include position(auto null -10px);
+    @include space(margin,0 null (-$padding));*/
+    transform: translateY(calc(100% + .33rem));
+}
+
+/*----------------------
+          Tip
+----------------------*/
+
+[data-eu-tooltip]{
+    position:relative;
+
+    @include state-hover{
+        &::before, &::after{
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        &::before{transform: translateX(-50%) scale(1);}
+        
+        &::after{transform: rotate(45deg) scale(1);}
+    }
+
+    &::before, &::after{
+        @include transition(all);
+        @include position(null null 100% 50%, absolute);
+        
+        visibility: hidden;
+        background: $color-black;
+        opacity: 0;
+    }
+
+    &::before{
+        @include font($font-size-small, $line-height-item, $color-white, 400);
+        
+        padding: $padding/2;
+        border-radius: $radius;
+        margin-bottom: $padding/2;
+        box-shadow: $shadow-input;
+        content: attr(data-eu-tooltip);
+        transform: translateX(-50%) scale(0);
+        transform-origin: center bottom;
+    }
+
+    &::after{
+        @include shape($padding*3/4,$padding*3/4);
+        @include space(margin, null null $px (-$px));
+        
+        box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.2);
+        content:"";
+        transform: rotate(45deg) scale(0);
+        transform-origin: center top;
+    }
+}
+
+[data-eu-tooltip].error{
+    &::before, &::after{
+        visibility: visible;
+        background-color: $color-note;
+        opacity: 1;
+    }
+    
+    &::before{transform: translateX(-50%) scale(1);}
+    
+    &::after{transform: rotate(45deg) scale(1);}
+}

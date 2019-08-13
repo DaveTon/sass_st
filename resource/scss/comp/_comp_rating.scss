@@ -1,0 +1,71 @@
+
+/*-------------------------------   Rating   -------------------------------*/
+
+@include comp(eu-rating){
+    $_padding: getSpace($height-input,0,$line-height-normal);
+    $_margin: getSpace($height-input,0,$line-height-normal);
+
+    @include main{
+        @include shape(null $width-input, $height-input);
+        @include space(padding, ($_padding!important) $padding ($_padding!important) 0);
+        @include space(margin, (-$_margin) null (-$_margin));
+
+        line-height: $line-height-normal;
+    }
+
+    @include state-disable{
+        .eu-button { pointer-events: none;}
+    }
+
+    > * { display: inline-block;}
+
+    .eu-button{
+        @include font(inherit, inherit, inherit);
+        /*&:not(.hover){ pointer-events: none;}*/
+
+        @include state-hover{
+            color: $color-primary-light!important;
+            text-shadow: 0px -1px 0px $color-primary-darker, 
+                -1px 0px 0px $color-primary-darker, 
+                0px 1px 0px $color-primary-darker, 
+                1px 0px 0px $color-primary-darker;
+        }
+
+        @include state-active{
+            color: $color-primary-lighter;
+            text-shadow: 0px -1px 0px $color-primary, 
+                -1px 0px 0px $color-primary, 
+                0px 1px 0px $color-primary, 
+                1px 0px 0px $color-primary;
+        }
+
+        @include modifier(hover){
+            @include state-active{
+                color: $color-primary-light!important;
+                text-shadow: 0px -1px 0px $color-primary-darker, 
+                    -1px 0px 0px $color-primary-darker, 
+                    0px 1px 0px $color-primary-darker, 
+                    1px 0px 0px $color-primary-darker;
+            }
+        }
+    }
+
+    .eu-description{
+        @include flex-item(1,1);
+        @include space(padding,null $padding 0);
+
+        width: auto;
+        min-width: $width-selector/2;
+        line-height: inherit;
+    }
+
+    .eu-content {
+        @include font($font-size-small, inherit, $color-grey-light);
+
+        .eu-button {
+            margin-right: $padding;
+
+            &:last-child{ margin-right: 0;}
+        }
+    }
+}
